@@ -1,6 +1,5 @@
 import React from "react";
 import "../App.css";
-import Footer from "../utils/Footer";
 import Card from "../utils/Card";
 
 const HomePage = () => {
