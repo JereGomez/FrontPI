@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import Card from "../utils/Card";
+import Card from "../components/Card";
 
 const HomePage = () => {
     return (
