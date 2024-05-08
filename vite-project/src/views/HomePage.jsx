@@ -1,7 +1,6 @@
 import React from "react";
 import "../App.css";
-import Card from "../utils/Card";
-import {Navbar , Nav} from "react-bootstrap";
+import Card from "../components/Card";
 
 const HomePage = () => {
     return (
