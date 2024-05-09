@@ -16,16 +16,8 @@ export const getAllProducts = async () => {
     }
 }
 
-//createProduct
-export const createProduct = async (nombre, descripcion, rutasImagenes) => {
-    try {
-        const response = await interceptor.post("/registrar", { nombre, descripcion, rutasImagenes });
-        return response.data;
-    } catch (error) {
-        console.error("Ocurrió un error al registrar un nuevo producto:", error);
-        throw error;
-    }
-};
+//getById
+
 
 
 

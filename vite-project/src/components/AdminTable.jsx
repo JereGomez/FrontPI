@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getAllProducts, createProduct } from '../interceptors/product.interceptor';
-import { editProduct, deleteProduct } from '../interceptors/admin.interceptor';
+//import { getAllProducts, createProduct } from '../interceptors/product.interceptor';
+import { getAllProducts, createProduct, editProduct, deleteProduct } from '../interceptors/admin.interceptor';
 
 const AdminTable = () => {
     const [products, setProducts] = useState([]);
