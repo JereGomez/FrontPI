@@ -58,9 +58,14 @@ const AdminTable = () => {
 
     const handleDeleteProduct = async (productId) => {
         try {
-            await deleteProduct(productId);
-            const productList = await getAllProducts();
-            setProducts(productList);
+            const confirmDelete = window.confirm("¿Estás seguro de que quieres eliminar este producto?");
+            if (confirmDelete) {
+                await deleteProduct(productId);
+                const productList = await getAllProducts();
+                setProducts(productList);
+            } else {
+                console.log("Eliminación cancelada.");
+            }
         } catch (error) {
             console.error("Ocurrió un error al eliminar el producto:", error);
         }
