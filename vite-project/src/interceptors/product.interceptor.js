@@ -16,7 +16,7 @@ export const getAllProducts = async () => {
     }
 }
 
-//getById
+
 
 
 
