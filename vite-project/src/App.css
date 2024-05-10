@@ -1,0 +1,30 @@
+/*BOTON VERDE*/
+.btn-custom-green {
+    background-color: #2a8584; 
+    border-color: #2a8584;
+    color: #fff; 
+}
+
+.btn-custom-green:hover {
+    background-color: #1d6b6a; 
+    border-color: #1d6b6a; 
+    color: #fff; 
+}
+
+/*BOTON NARANJA*/
+.btn-custom-orange {
+    background-color: #e65a19;
+    border-color: #e65a19;
+    color: #fff; 
+}
+
+.btn-custom-orange:hover {
+    background-color: #cc4e17; 
+    border-color: #cc4e17; 
+}
+
+/*FONDO NARANJA*/
+.bg-custom-orange {
+    background-color: #e65a19; 
+}
+

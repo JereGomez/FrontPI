@@ -85,6 +85,10 @@ const AdminTable = () => {
 
     return (
         <div className='d-none d-lg-block'>
+        <div className="text-center d-flex align-items-center justify-content-left">
+            <p className='fw-semibold me-2 mt-3'><i class="bi bi-filter"></i> Filtros</p>
+            <button type="button" className="btn btn-custom-green" onClick={handleShowModal}>+ Agregar producto</button>
+        </div>
             <table className="table">
                 <thead>
                     <tr>
@@ -103,22 +107,20 @@ const AdminTable = () => {
                             <td>{product.descripcion}</td>
                             <td>{product.precio}</td>
                             <td>
-                                <button type="button" className="btn btn-primary me-2" onClick={() => {
+                                <button type="button" className="btn btn-danger me-2" onClick={() => handleDeleteProduct(product.id)}><i class="bi bi-trash3"></i></button>
+                                <button type="button" className="btn btn-custom-green" onClick={() => {
                                     setEditingProductId(product.id);
                                     setNombre(product.nombre);
                                     setDescripcion(product.descripcion);
                                     setRutasImagenes(product.rutasImagenes);
                                     handleShowModal();
-                                }}>Editar</button>
-                                <button type="button" className="btn btn-danger" onClick={() => handleDeleteProduct(product.id)}>Eliminar</button>
+                                }}><i class="bi bi-pen"></i></button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <div className="text-center mt-4">
-                <button type="button" className="btn btn-primary" onClick={handleShowModal}>Agregar Nuevo Producto</button>
-            </div>
+
             {showModal && (
     <div className="modal fade show" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
         <div className="modal-dialog" role="document">
@@ -133,13 +135,13 @@ const AdminTable = () => {
                             <div className="col">
                                 <div className="mb-1">
                                     <label htmlFor="productName" className="form-label">Nombre del Producto</label>
-                                    <input type="text" className="form-control" id="productName" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                                    <input type="text" className="form-control" id="productName" placeholder='nombre del producto' value={nombre} onChange={(e) => setNombre(e.target.value)} />
                                 </div>
                             </div>
                             <div className="col">
                                 <div className="mb-1">
                                     <label htmlFor="productDescription" className="form-label">Descripción del Producto</label>
-                                    <input type="text" className="form-control" id="productDescription" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
+                                    <input type="text" className="form-control" id="productDescription" placeholder='descripcion del producto' value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
                                 </div>
                             </div>
                         </div>
@@ -147,7 +149,7 @@ const AdminTable = () => {
                             <div className="row" key={index}>
                                 <div className="col">
                                     <label htmlFor={`productImage${index + 1}`} className="form-label">{`Imagen ${index + 1}`}</label>
-                                    <input type="text" className="form-control" id={`productImage${index + 1}`} value={ruta} onChange={(e) => {
+                                    <input type="text" placeholder='imagen del producto' className="form-control" id={`productImage${index + 1}`} value={ruta} onChange={(e) => {
                                         const updatedRutasImagenes = [...rutasImagenes];
                                         updatedRutasImagenes[index] = e.target.value;
                                         setRutasImagenes(updatedRutasImagenes);

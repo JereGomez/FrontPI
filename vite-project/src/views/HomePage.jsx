@@ -34,27 +34,6 @@ const HomePage = () => {
   </div>
 </nav>
       
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-        
-       
-       
         
         <Card/>
         
