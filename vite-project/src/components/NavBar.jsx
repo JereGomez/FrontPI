@@ -1,25 +1,29 @@
+import React from 'react';
 
-const NavBar = () => {
-    return (
+function CustomNavbar() {
+  return (
+    <nav className="navbar navbar-expand-lg navbar-light bg-custom-orange">
+      <div className="container">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-custom-orange" >
-        <div class="container-fluid mx-5">
-            <a class="navbar-brand text-white" href="/">Digital Booking</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link text-white" href="/">Inicio</a>
-                <a class="nav-link text-white" href="/admin">Administrador</a>
-            </div>
-            </div>
+        <a className="navbar-brand text-white fw-semibold" href="/">GOTravel</a>
+
+        <button className="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <a className="nav-link text-white" href="/">Iniciar sesión</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link text-white" href="/">Crear cuenta</a>
+            </li>
+          </ul>
         </div>
-        </nav>
-        
-    );
-  };
-  
-export default NavBar;
+      </div>
+    </nav>
+  );
+}
 
-
+export default CustomNavbar;

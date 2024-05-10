@@ -28,3 +28,16 @@
     background-color: #e65a19; 
 }
 
+/*TEXTO NARANJA*/
+.text-custom-orange {
+    color: #e65a19; 
+}
+/*TEXTO NARANJA GASTADO*/
+.text-custom-orange-lead {
+    color: #e65a199d; 
+}  
+
+/*TEXTO NARANJA GASTADO HOOVER*/
+.text-custom-orange-lead:hover {
+    color: #e65a19; 
+}  

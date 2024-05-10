@@ -48,4 +48,17 @@ export const deleteProduct = async (productId) => {
     }
 };
 
+//getById
+
+export const getProductsById = async (id) => {
+    try{
+     const response = await interceptor.get(`${id}`)
+     return response.data
+     
+    } 
+    catch{
+     console.log("ocurrio un error inesperado al traer el producto especifico");
+    }
+}
+
 
