@@ -41,3 +41,23 @@
 .text-custom-orange-lead:hover {
     color: #e65a19; 
 }  
+
+
+.card{
+    display: flex;
+    flex-direction: row;
+    width: 100;
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    border: 1.5px solid rgb(1336, 136, 136);
+    
+    
+}
+
+
+
+
+
+
+
+
+

@@ -4,16 +4,25 @@ const Card = ({item}) => {
  
    const {nombre,descripcion,rutasimagenes} = item
 
-    
+   
   return (
-<div class = "card" >
-      <h2 class="card-title">{nombre}</h2>
-      <h2 class = "card-text">{descripcion} </h2>
-        <a href={"/detalles/"+ item.id}><img src={rutasimagenes}  class = "card-image-top"alt="imagen" /></a>
-    </div>
-
     
+
+  <div class="col">
+<div class ="card h100">
+  <a href={"/detalles/"+ item.id}><img src={rutasimagenes}  class = "card-image-top"alt="..." /></a>
+<div class="card-body">
+      <h2 class="card-title">{nombre}</h2>
+      <p class = "card-text">{descripcion} 
+      </p>
+      </div>
+
+      </div>
+    
+    </div>
+   
+  
+  
   )
 }
-
 export default Card

@@ -15,11 +15,17 @@ const Detail = () => {
  },[])
 
   return (
-    <div>
-      <h1>{product.nombre}</h1>
-      <h2>{product.descripcion} </h2>
+    <div class="col">
+    <div class ="card">
+    <div class="card-body">
+      <img src={product.rutasimagenes} alt="" /> 
+      <h1 class="card-title">{product.nombre}</h1>
+      <p class="card-text">{product.descripcion} </p>
+      
       
       <a href="/">Volver</a>
+    </div>
+    </div>
     </div>
   )
 }

@@ -14,9 +14,9 @@ const HomePage = () => {
 
 
     return (
-
-      <div>
-        {list.map((producto) =><Card key={producto.id} item={producto} />)} 
+     
+      <div class ="card">
+       {list.map((producto) =><Card key={producto.id} item={producto} />)} 
       </div>
 
     );
