@@ -161,7 +161,7 @@ const AdminTable = () => {
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Cerrar</button>
-                    <button type="button" className="btn btn-primary" onClick={handleSaveProduct}>{editingProductId ? 'Guardar Cambios' : 'Guardar Producto'}</button>
+                    <button type="button" className="btn btn-custom-green" onClick={handleSaveProduct}>{editingProductId ? 'Guardar Cambios' : 'Guardar Producto'}</button>
                 </div>
             </div>
         </div>

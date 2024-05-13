@@ -1,16 +1,20 @@
 import React from 'react';
+import LogoImage from '/Proyecto Integrador Equipo 8.png';
 
 const Footer = () => {
   return (
     <div className="bg-dark mt-5">
       <footer className="container py-5">
         <div className="row">
-          <div className="col-4 col-md-4 mb-3">
-            <h5 className='text-custom-orange'>GOTravel</h5>
+          <div className="col-12 col-md-4 mb-3" >
+            <div className="d-flex align-items-center"style={{marginLeft:'-20px'}}>
+            <img src={LogoImage} alt="Logo" style={{ width: '80px'}} />
+            <h5 className='text-custom-orange mt-1' style={{marginLeft:'-20px'}}>GOTravel</h5>
+            </div>
             <p className='text-custom-orange text-'>Nuestro trabajo es inspirar y permitir hospedajes memorables para todos.</p>
           </div>  
 
-          <div className="col-4 col-md-2 mb-3">
+          <div className="col-6 col-md-2 mb-3">
             <h5 className='text-custom-orange'>Acerca de</h5>
             <ul className="nav flex-column">
               <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-custom-orange-lead">sobre nosotros</a></li>
@@ -19,7 +23,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="col-4 col-md-2 mb-3">
+          <div className="col-6 col-md-2 mb-3">
             <h5 className='text-custom-orange'>Soporte</h5>
             <ul className="nav flex-column">
               <li className="nav-item mb-2"><a href="#" className="nav-link p-0 text-custom-orange-lead">Contactanos</a></li>
@@ -27,7 +31,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="col-6 col-md-3 ms-md-4 mb-3">
+          <div className="col-10 col-md-3 ms-md-4 mb-3">
             <form>
               <h5 className="text-custom-orange">Recibir actualizaciones</h5>
               <div className="d-flex flex-column flex-sm-row gap-2">
@@ -39,13 +43,13 @@ const Footer = () => {
           </div>
         </div>
 
-        <div class="d-flex flex-column flex-sm-row justify-content-between">
-      <p className='text-white'>&copy; 2024 GOTravel. Todos los derechos reservados</p>
-      <ul class="list-unstyled d-flex">
-        <li class="ms-3 "><a class="text-white" href="#">Politica de privacidad</a></li>
-        <li class="ms-3"><a class="text-white" href="#">Términos y condiciones</a></li>
-      </ul>
-    </div>
+        <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center">
+          <p className='text-white'>&copy; 2024 GOTravel. Todos los derechos reservados</p>
+          <ul className="list-unstyled d-flex">
+            <li className="ms-3"><a className="text-white" href="#">Politica de privacidad</a></li>
+            <li className="ms-3"><a className="text-white" href="#">Términos y condiciones</a></li>
+          </ul>
+        </div>
       </footer>
     </div>
   );
