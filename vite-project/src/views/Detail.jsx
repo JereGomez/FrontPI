@@ -18,7 +18,7 @@ const Detail = () => {
     <div class="col">
     <div class ="card">
     <div class="card-body">
-      <img src={product.rutasimagenes} alt="" /> 
+      <img src={product.rutasImagenes} alt="" /> 
       <h1 class="card-title">{product.nombre}</h1>
       <p class="card-text">{product.descripcion} </p>
       
