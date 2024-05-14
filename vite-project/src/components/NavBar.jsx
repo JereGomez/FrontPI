@@ -1,28 +1,81 @@
 import React from 'react';
+import LogoImage from '/Proyecto Integrador Equipo 8.png';
+import BgNavBar from '/pexels-tomfisk-1518723.jpg';
 
 function CustomNavbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-custom-orange">
-      <div className="container">
+    <div className='pb-3' style={{ 
+      backgroundImage: `url(${BgNavBar})`, 
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat'
+    }}>
+      <nav className="navbar navbar-expand-lg navbar-light">
+        <div className="container">
+          {/* Contenedor para el logo y el texto */}
+          <div className="d-flex align-items-center">
+            <a className="navbar-brand text-white fw-semibold d-flex align-items-center" href="/">
+              <img src={LogoImage} alt="Logo" style={{ width: '80px'}} /> 
+              <span className="nav-link text-custom-orange" style={{marginLeft:'-20px'}}>GOTravel</span> 
+            </a>
+          </div>
 
-        <a className="navbar-brand text-white fw-semibold" href="/">GOTravel</a>
+          <button className="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-        <button className="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <a className="nav-link text-white" href="/">Iniciar sesión</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link text-white" href="/">Crear cuenta</a>
-            </li>
-          </ul>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <a className="nav-link text-white" href="/">Hoteles</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link text-white" href="/">Glampings</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link text-white" href="/">Hostales</a>
+              </li>
+            </ul>
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
+                <a className="nav-link text-white" href="/">Iniciar sesión</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link text-white btn btn-custom-orange borded rounded" href="/">Crear cuenta</a>
+              </li>
+            </ul>
+          </div>
         </div>
+      </nav>
+      <p className='lead-navbar text-center text-light d-none d-md-flex'>Encuentra instantáneamente las mejores ofertas en hoteles, glampings, hostales y mucho más!</p>
+      {/* Contenedor para el formulario de filtros */}
+      <div className="container mt-3 mb-2">
+        <form className="d-flex justify-content-center">
+          <select className="form-select me-2" style={{ maxWidth: '250px' }}>
+            <option value="" disabled selected> A donde vamos</option>
+            <option value="paris">París</option>
+            <option value="newyork">Nueva York</option>
+            <option value="tokyo">Tokio</option>
+            <option value="london">Londres</option>
+          </select>
+          <select className="form-select me-2" style={{ maxWidth: '250px' }}>
+            <option value="" disabled selected>Check-in - Check-out</option>
+            <option value="2024-06-01">1 Junio 2024</option>
+            <option value="2024-06-02">2 Junio 2024</option>
+            <option value="2024-06-03">3 Junio 2024</option>
+            <option value="2024-06-04">4 Junio 2024</option>
+          </select>
+          <select className="form-select me-2" style={{ maxWidth: '250px' }}>
+            <option value="" disabled selected>1 huespedes - 1 habitación</option>
+            <option value="2024-06-05">2 huespedes - 2 habitación</option>
+            <option value="2024-06-06">3 huespedes - 3 habitación</option>
+            <option value="2024-06-07">4 huespedes - 4 habitación</option>
+            <option value="2024-06-08">5 huespedes - 5 habitación</option>
+          </select>
+          <button type="submit" className="btn btn-custom-orange">Buscar &rarr;</button>
+        </form>
       </div>
-    </nav>
+    </div>
   );
 }
 
