@@ -6,15 +6,19 @@ const Card = ({ item }) => {
   const primeraImagenURL = rutasImagenes[0];
 
   return (
-    <div className="col">
-      <div className="card h100">
-        <img src={primeraImagenURL} className="card-img-top" alt={nombre} />
+    
+    
+      <div class="card-group">
+      <div className="card">
+       
         <div className="card-body">
+        <a href= {"/detalles/" + item.id}>  <img src={primeraImagenURL} className="card-img-top" alt={nombre} /> </a> 
           <h2 className="card-title">{nombre}</h2>
           <p className="card-text">{descripcion}</p>
         </div>
       </div>
     </div>
+    
   )
 }
 

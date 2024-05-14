@@ -46,12 +46,24 @@
 .card{
     display: flex;
     flex-direction: row;
-    width: 100;
-    padding: 0.5rem 0.5rem 0 0.5rem;
-    border: 1.5px solid rgb(1336, 136, 136);
+    justify-content: space-around;
+    align-items: center;
+    width: 420px;
     
     
+    border: 1px solid rgb(1336, 136, 136);
+    
+    
+
 }
+
+
+
+
+
+
+
+
 
 /*NAVBAR*/
 
