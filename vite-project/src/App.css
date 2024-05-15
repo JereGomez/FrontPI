@@ -42,39 +42,53 @@
     color: #e65a19; 
 }  
 
-
-.card{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    width: 420px;
-    
-    
-    border: 1px solid rgb(1336, 136, 136);
-    
-    
-
-}
-
-
-
-
-
-
-
-
+/*TEXTO VERDE*/
+.text-green {
+    color: #2a8584;
+  }
+  
 
 /*NAVBAR*/
+#nav-title{
+    margin-left: -20px;
+}
+
+#nav-title:hover{
+    color: #e65a19;
+}
 
 .lead-navbar{
     max-width: 500px; 
     margin: -20px auto 0px auto;
+}
 
+.card img{
+    max-height: 150px;
+    width: 240px;
 }
 
 
+/*CARD*/
 
-
+.scroll-container {
+    overflow-x: scroll;
+    overflow-y: hidden; 
+    white-space: nowrap;
+    scrollbar-width: thin; 
+  }
+  
+  .scroll-container::-webkit-scrollbar {
+    height: 8px; /* Altura de la barra de desplazamiento */
+  }
+  
+  .scroll-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5); /* Color del thumb */
+    border-radius: 10px; /* Borde redondeado */
+  }
+  
+  .scroll-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1); /* Color del track */
+  }
+  
 
 

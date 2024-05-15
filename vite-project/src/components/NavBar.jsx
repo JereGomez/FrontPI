@@ -16,7 +16,7 @@ function CustomNavbar() {
           <div className="d-flex align-items-center">
             <a className="navbar-brand text-white fw-semibold d-flex align-items-center" href="/">
               <img src={LogoImage} alt="Logo" style={{ width: '80px'}} /> 
-              <span className="nav-link text-custom-orange" style={{marginLeft:'-20px'}}>GOTravel</span> 
+              <span id='nav-title' className="nav-link text-custom-orange">GOTravel</span> 
             </a>
           </div>
 
@@ -50,27 +50,27 @@ function CustomNavbar() {
       <p className='lead-navbar text-center text-light d-none d-md-flex'>Encuentra instantáneamente las mejores ofertas en hoteles, glampings, hostales y mucho más!</p>
       {/* Contenedor para el formulario de filtros */}
       <div className="container mt-3 mb-2">
-        <form className="d-flex justify-content-center">
-          <select className="form-select me-2" style={{ maxWidth: '250px' }}>
-            <option value="" disabled selected> A donde vamos</option>
+        <form className="d-none d-sm-flex justify-content-center">
+          <select className="form-select me-2 text-green p-2" style={{ maxWidth: '250px' }}>
+            <option value="" disabled selected> Á donde vamos</option>
             <option value="paris">París</option>
             <option value="newyork">Nueva York</option>
             <option value="tokyo">Tokio</option>
             <option value="london">Londres</option>
           </select>
-          <select className="form-select me-2" style={{ maxWidth: '250px' }}>
+          <select className="form-select me-2 text-green p-2" style={{ maxWidth: '250px' }}>
             <option value="" disabled selected>Check-in - Check-out</option>
             <option value="2024-06-01">1 Junio 2024</option>
             <option value="2024-06-02">2 Junio 2024</option>
             <option value="2024-06-03">3 Junio 2024</option>
             <option value="2024-06-04">4 Junio 2024</option>
           </select>
-          <select className="form-select me-2" style={{ maxWidth: '250px' }}>
-            <option value="" disabled selected>1 huespedes - 1 habitación</option>
-            <option value="2024-06-05">2 huespedes - 2 habitación</option>
-            <option value="2024-06-06">3 huespedes - 3 habitación</option>
-            <option value="2024-06-07">4 huespedes - 4 habitación</option>
-            <option value="2024-06-08">5 huespedes - 5 habitación</option>
+          <select className="form-select me-2 text-green p-2" style={{ maxWidth: '250px' }}>
+            <option value="" disabled selected>2 huéspedes - 1 habitación</option>
+            <option value="2024-06-05">2 huéspedes - 2 habitación</option>
+            <option value="2024-06-06">3 huéspedes - 3 habitación</option>
+            <option value="2024-06-07">4 huéspedes - 4 habitación</option>
+            <option value="2024-06-08">5 huéspedes - 5 habitación</option>
           </select>
           <button type="submit" className="btn btn-custom-orange">Buscar &rarr;</button>
         </form>

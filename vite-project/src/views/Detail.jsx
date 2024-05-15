@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
+import CustomNavbar from '../components/NavBar'
 
 
 const Detail = () => {
@@ -17,7 +17,8 @@ const Detail = () => {
 
 
   return (
-    
+    <>
+    <CustomNavbar />
     <div class ="row">
     <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
 
@@ -26,6 +27,7 @@ const Detail = () => {
           ))}
     <h1 class="card-title">{product.nombre}</h1>
       <p class="card-text">{product.descripcion} </p>
+      
       <a href="/" className='"nav-link text-white btn btn-custom-orange borded rounded"'>Volver</a>
 
     
@@ -34,7 +36,7 @@ const Detail = () => {
       
     </div>
     </div>
-    
+    </>
   )
 }
 

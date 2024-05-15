@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 const interceptor = axios.create({
   baseURL: 'http://localhost:8081/admin',
 });
@@ -27,7 +26,7 @@ export const createProduct = async (nombre, descripcion, rutasImagenes) => {
 };
 
 
-// editProduct
+//editProduct
 export const editProduct = async (productId, nombre, descripcion, rutasImagenes) => {
     try {
         const response = await interceptor.put(`/actualizar`, { id: productId, nombre, descripcion, rutasImagenes });
@@ -48,8 +47,7 @@ export const deleteProduct = async (productId) => {
     }
 };
 
-//getById
-
+//getProductsById
 export const getProductsById = async (id) => {
     try{
      const response = await interceptor.get(`${id}`)

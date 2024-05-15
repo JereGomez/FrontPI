@@ -2,24 +2,36 @@ import React, { useEffect, useState } from "react";
 import "../App.css";
 import Card from "../components/Card";
 import axios from "axios";
+import CustomNavbar from "../components/NavBar";
 
 const HomePage = () => {
+  const [list, setList] = useState([]);
 
-  const [list,setlist] = useState([])
-
-  useEffect(() =>{
+  useEffect(() => {
     axios('http://localhost:8081/productos/listar')
-    .then(res => setlist(res.data) )
-  },[])
+      .then(res => setList(res.data));
+  }, []);
 
-
-    return (
-     
-      <div class ="card">
-       {list.map((producto) =><Card key={producto.id} item={producto}/>)} 
+  return (
+    <>
+      <CustomNavbar />
+      <div className="container">
+        <div className="px-4 mt-3">
+          <h3 className="fs-1">Qué estás buscando?</h3>
+          <p className="text-green">Explora diferentes tipos de alojamientos de tendencia en todo el mundo para escapadas inolvidables</p>
+        </div>
+        <div className="d-lg-flex flex-lg-wrap row">
+          <div className="d-flex flex-nowrap overflow-auto scroll-container">
+            {list.map((producto) => (
+              <div key={producto.id} className="col-12 col-md-6 col-lg-3 mb-4 flex-shrink-0">
+                <Card item={producto} />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
+    </>
+  );
+}
 
-    );
-  };
-  
 export default HomePage;
