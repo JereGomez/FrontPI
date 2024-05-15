@@ -44,7 +44,28 @@
 
 /*TEXTO VERDE*/
 .text-green {
-    color: #2a8584;
+  color: #2a8584;
+}
+
+/*CARD*/
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .card-text {
+    font-size: 16px;
+  }
+  
+  
+  .btn-primary:focus,
+  .btn-primary.focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+  }
+  
+  .img-thumbnail {
+    max-width: 100%;
+    height: auto;
   }
   
 
