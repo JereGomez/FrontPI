@@ -4,10 +4,13 @@ import { useParams } from 'react-router-dom'
 
 
 
+
 const Detail = () => {
  
  const [product,setproduct] = useState({})
  const params = useParams()
+
+ const [showallImages,setShowallImages] = useState(false)
 
  useEffect(()=>{
   axios('http://localhost:8081/admin/'+params.id)
@@ -15,26 +18,42 @@ const Detail = () => {
  },[])
 
 
+ const toggleAllimages = () => {
+  setShowallImages(!showallImages)
+}
+
 
   return (
     
-    <div class ="row">
-    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+     
+          
+          
+            <div className='container py-5'>
+              <div className='row'>
+                <div className='col-lg-6'>
+              <h1 className="card-title">{product.nombre}</h1>
+              <p className="card-text">{product.descripcion}</p>
+              <a href="/" className='" text-white btn btn-custom-orange borded rounded'>Volver</a>
 
-    {product.rutasImagenes && product.rutasImagenes.map((imageUrl, index) => (
-            <img key={index} src={imageUrl} alt={`Image ${index}`} className='"w-100 shadow-1-strong rounded mb-4"' />
-          ))}
-    <h1 class="card-title">{product.nombre}</h1>
-      <p class="card-text">{product.descripcion} </p>
-      <a href="/" className='"nav-link text-white btn btn-custom-orange borded rounded"'>Volver</a>
-
-    
+              <div className="d-flex flex-wrap ">
+            {product.rutasImagenes && product.rutasImagenes.slice(0,showallImages ? product.rutasImagenes.length :2).map((imageUrl, index) => (
+              <div key={index} className="col-lg-6 mb-4">
+                <img src={imageUrl} alt={`Image ${index}`} className="img-thumbnail"/>
+              </div>
+            ))}
+          </div>
+          {product.rutasImagenes && product.rutasImagenes.length > 2 &&  (
+            <div className="text-center mt-3">
+              <button className='"nav-link text-white btn btn-custom-orange borded rounded"'onClick={toggleAllimages}>{setShowallImages ? "Ver mas" : "Ver menos"}</button>
+            </div>
+          )}
+        
       
-      
-      
-    </div>
-    </div>
-    
+      </div>
+      </div>
+      </div>
+   
+   
   )
 }
 
