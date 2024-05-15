@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 import Card from "../components/Card";
-import axios from "axios";
 import CustomNavbar from "../components/NavBar";
+import { getAllProducts } from "../interceptors/product.interceptor";
 
 const HomePage = () => {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    axios('http://localhost:8081/productos/listar')
-      .then(res => setList(res.data));
+    const fetchData = async () => {
+      try {
+        const productList = await getAllProducts();
+        setList(productList);
+      } catch (error) {
+        console.error("Error al obtener los productos en HomePage:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
