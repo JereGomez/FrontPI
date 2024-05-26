@@ -11,8 +11,8 @@ const getRandomReviewCount = (min, max) => {
 }
 
 const Card = ({ item }) => {
-  const { nombre, precio, rutasImagenes } = item;
-  const primeraImagenURL = rutasImagenes[0];
+  const { nombre, precioNoche, imagenes } = item;
+  const primeraImagenURL = imagenes.length > 0 ? imagenes[0].rutaDeArchivo : 'default-image-url'; // URL por defecto si no hay imágenes
 
   const rating = getRandomRating(3.5, 5.0);
   const reviewCount = getRandomReviewCount(80, 200);
@@ -31,7 +31,7 @@ const Card = ({ item }) => {
           <i className="bi bi-star"></i> {rating} ({reviewCount} reseñas)
         </div>
         <div>
-          <span className="fw-semibold fs-5">$240</span>
+          <span className="fw-semibold fs-5">${precioNoche}</span>
           <span className="text-green text-decoration-line-through">USD</span>
         </div>
         <div className="text-green">

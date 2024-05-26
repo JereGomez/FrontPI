@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 import Card from "../components/Card";
-import axios from "axios";
 import CustomNavbar from "../components/NavBar";
+import { getAllProducts } from "../interceptors/product.interceptor";
 
 const HomePage = () => {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    axios('http://localhost:8081/productos/listar')
-      .then(res => setList(res.data));
+    const fetchProducts = async () => {
+      try {
+        const data = await getAllProducts();
+        setList(data);
+      } catch (error) {
+        console.error(error);
+        setList(null);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
   return (
@@ -20,6 +29,7 @@ const HomePage = () => {
           <h3 className="fs-1">Qué estás buscando?</h3>
           <p className="text-green">Explora diferentes tipos de alojamientos de tendencia en todo el mundo para escapadas inolvidables</p>
         </div>
+        {list != null ? (
         <div className="d-lg-flex flex-lg-wrap row">
           <div className="d-flex flex-nowrap overflow-auto scroll-container">
             {list.map((producto) => (
@@ -29,6 +39,11 @@ const HomePage = () => {
             ))}
           </div>
         </div>
+        ) : (
+          <div className="px-4 mt-3">
+          <h4 className="fs-3 text-center m-5">No hay productos disponibles</h4>
+        </div>
+      )}
       </div>
     </>
   );
