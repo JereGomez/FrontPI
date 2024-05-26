@@ -1,23 +1,54 @@
 import axios from 'axios';
 
-
 const interceptor = axios.create({
   baseURL: 'http://localhost:8081/productos',
 });
 
-
-//getAll
 export const getAllProducts = async () => {
-    try{
-        const response = await interceptor.get("/listar")
-        return response.data
-    } catch {
-        console.error("ocurrio un error inesperado al traer los productos")
-    }
-}
+  try {
+    const response = await interceptor.get('/');
+    return response.data;
+  } catch (error) {
+    console.error('Ocurrió un error al traer los productos:', error);
+    throw error;
+  }
+};
 
+export const getProductsById = async (id) => {
+  try {
+    const response = await interceptor.get(`/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Ocurrió un error al traer el producto específico:', error);
+    throw error;
+  }
+};
 
+export const createProduct = async (product) => {
+  try {
+    const response = await interceptor.post('/', product);
+    return response.data;
+  } catch (error) {
+    console.error('Ocurrió un error al registrar un nuevo producto:', error);
+    throw error;
+  }
+};
 
+export const editProduct = async (productId, productData) => {
+  try {
+    const response = await interceptor.put(`/${productId}`, productData);
+    return response.data;
+  } catch (error) {
+    console.error('Ocurrió un error al editar el producto:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
 
-
-
+export const deleteProduct = async (productId) => {
+  try {
+    await interceptor.delete(`/${productId}`);
+  } catch (error) {
+    console.error('Ocurrió un error al eliminar el producto:', error);
+    throw error;
+  }
+};

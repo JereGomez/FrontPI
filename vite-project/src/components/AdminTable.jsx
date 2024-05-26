@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
-//import { getAllProducts, createProduct } from '../interceptors/product.interceptor';
-import { getAllProducts, createProduct, editProduct, deleteProduct } from '../interceptors/admin.interceptor';
+import React, { useState, useEffect } from 'react';
+import { getAllProducts, createProduct, editProduct, deleteProduct } from '../interceptors/product.interceptor';
 
 const AdminTable = () => {
     const [products, setProducts] = useState([]);
@@ -8,14 +7,20 @@ const AdminTable = () => {
     const [editingProductId, setEditingProductId] = useState(null);
     const [nombre, setNombre] = useState('');
     const [descripcion, setDescripcion] = useState('');
-    const [rutasImagenes, setRutasImagenes] = useState(["", "", "", "", ""]);
+    const [capacidad, setCapacidad] = useState(0);
+    const [precioNoche, setPrecioNoche] = useState(0.0);
+    const [categorias, setCategorias] = useState([]);
+    const [imagenes, setImagenes] = useState([{ id: null, nombre: '', rutaDeArchivo: '' }]);
 
     const handleCloseModal = () => {
         setShowModal(false);
         setEditingProductId(null);
         setNombre('');
         setDescripcion('');
-        setRutasImagenes(["", "", "", "", ""]);
+        setCapacidad(0);
+        setPrecioNoche(0.0);
+        setCategorias([]);
+        setImagenes([{ id: null, nombre: '', rutaDeArchivo: '' }]);
     };
 
     const handleShowModal = () => {
@@ -36,7 +41,15 @@ const AdminTable = () => {
 
     const handleCreateProduct = async () => {
         try {
-            await createProduct(nombre, descripcion, rutasImagenes);
+            const newProduct = {
+                nombre,
+                descripcion,
+                capacidad,
+                precioNoche,
+                categorias,
+                imagenes
+            };
+            await createProduct(newProduct);
             const productList = await getAllProducts();
             setProducts(productList);
             handleCloseModal();
@@ -47,7 +60,20 @@ const AdminTable = () => {
 
     const handleEditProduct = async (productId) => {
         try {
-            await editProduct(productId, nombre, descripcion, rutasImagenes);
+            const updatedProduct = {
+                id: productId,
+                nombre,
+                descripcion,
+                capacidad,
+                precioNoche,
+                categorias,
+                imagenes: imagenes.map(imagen => ({
+                    id: imagen.id,
+                    nombre: imagen.nombre,
+                    rutaDeArchivo: imagen.rutaDeArchivo
+                }))
+            };
+            await editProduct(productId, updatedProduct);
             const productList = await getAllProducts();
             setProducts(productList);
             handleCloseModal();
@@ -78,96 +104,146 @@ const AdminTable = () => {
                 setProducts(productList);
             } catch (error) {
                 console.error("Ocurrió un error inesperado al traer los productos:", error);
+                setProducts(null);
             }
         };
         fetchProducts();
     }, []);
 
+    const handleImageChange = (index, field, value) => {
+        const updatedImages = [...imagenes];
+        updatedImages[index] = { ...updatedImages[index], [field]: value };
+        setImagenes(updatedImages);
+    };
+
+    const handleAddImage = () => {
+        setImagenes([...imagenes, { id: null, nombre: '', rutaDeArchivo: '' }]);
+    };
+
+    const handleRemoveImage = (index) => {
+        const updatedImages = imagenes.filter((_, i) => i !== index);
+        setImagenes(updatedImages);
+    };
+
     return (
         <div className='d-none d-lg-block'>
-        <div className="text-center d-flex align-items-center justify-content-left">
-            <p className='fw-semibold me-2 mt-3'><i class="bi bi-filter"></i> Filtros</p>
-            <button type="button" className="btn btn-custom-green" onClick={handleShowModal}>+ Agregar producto</button>
-        </div>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Descripcion</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {products.map(product => (
-                        <tr key={product.id}>
-                            <th scope="row">{product.id}</th>
-                            <td>{product.nombre}</td>
-                            <td>{product.descripcion}</td>
-                            <td>{product.precio}</td>
-                            <td>
-                                <button type="button" className="btn btn-danger me-2" onClick={() => handleDeleteProduct(product.id)}><i class="bi bi-trash3"></i></button>
-                                <button type="button" className="btn btn-custom-green" onClick={() => {
-                                    setEditingProductId(product.id);
-                                    setNombre(product.nombre);
-                                    setDescripcion(product.descripcion);
-                                    setRutasImagenes(product.rutasImagenes);
-                                    handleShowModal();
-                                }}><i class="bi bi-pen"></i></button>
-                            </td>
+            <div className="text-center d-flex align-items-center justify-content-left">
+                <p className='fw-semibold me-2 mt-3'><i className="bi bi-filter"></i> Filtros</p>
+                <button type="button" className="btn btn-custom-green" onClick={handleShowModal}>+ Agregar producto</button>
+            </div>
+            {products === null ? (
+                <div className="px-4 mt-3">
+                    <h4 className="fs-3 text-center m-5">No se pudieron cargar los productos. Inténtalo de nuevo más tarde.</h4>
+                </div>
+            ) : (
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Capacidad</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Acciones</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {products && products.map(product => (
+                            <tr key={product.id}>
+                                <th scope="row">{product.id}</th>
+                                <td>{product.nombre}</td>
+                                <td>{product.descripcion}</td>
+                                <td>{product.capacidad} personas</td>
+                                <td>${product.precioNoche}</td>
+                                <td>
+                                    <button type="button" className="btn btn-danger me-2" onClick={() => handleDeleteProduct(product.id)}><i className="bi bi-trash3"></i></button>
+                                    <button type="button" className="btn btn-custom-green" onClick={() => {
+                                        setEditingProductId(product.id);
+                                        setNombre(product.nombre);
+                                        setDescripcion(product.descripcion);
+                                        setCapacidad(product.capacidad);
+                                        setPrecioNoche(product.precioNoche);
+                                        setCategorias(product.categorias);
+                                        setImagenes(product.imagenes.map(imagen => ({
+                                            id: imagen.id,
+                                            nombre: imagen.nombre,
+                                            rutaDeArchivo: imagen.rutaDeArchivo
+                                        })));
+                                        handleShowModal();
+                                    }}><i className="bi bi-pen"></i></button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            )}
 
             {showModal && (
-    <div className="modal fade show" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
-        <div className="modal-dialog" role="document">
-            <div className="modal-content">
-                <div className="modal-header">
-                    <h5 className="modal-title">{editingProductId ? 'Editar Producto' : 'Agregar Nuevo Producto'}</h5>
-                    <button type="button" className="btn-close" onClick={handleCloseModal}></button>
-                </div>
-                <div className="modal-body">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col">
-                                <div className="mb-1">
-                                    <label htmlFor="productName" className="form-label">Nombre del Producto</label>
-                                    <input type="text" className="form-control" id="productName" placeholder='nombre del producto' value={nombre} onChange={(e) => setNombre(e.target.value)} />
-                                </div>
+                <div className="modal fade show" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">{editingProductId ? 'Editar Producto' : 'Agregar Producto'}</h5>
+                                <button type="button" className="close" onClick={handleCloseModal}>
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <div className="col">
-                                <div className="mb-1">
-                                    <label htmlFor="productDescription" className="form-label">Descripción del Producto</label>
-                                    <input type="text" className="form-control" id="productDescription" placeholder='descripcion del producto' value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
-                                </div>
+                            <div className="modal-body">
+                                <form>
+                                    <div className="form-group">
+                                        <label htmlFor="nombre">Nombre</label>
+                                        <input type="text" className="form-control" id="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="descripcion">Descripción</label>
+                                        <textarea className="form-control" id="descripcion" value={descripcion} onChange={(e) => setDescripcion(e.target.value)}></textarea>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="capacidad">Capacidad</label>
+                                        <input type="number" className="form-control" id="capacidad" value={capacidad} onChange={(e) => setCapacidad(parseInt(e.target.value))} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="precioNoche">Precio por Noche</label>
+                                        <input type="number" className="form-control" id="precioNoche" value={precioNoche} onChange={(e) => setPrecioNoche(parseFloat(e.target.value))} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="categorias">Categorías</label>
+                                        <input type="text" className="form-control" id="categorias" value={categorias} onChange={(e) => setCategorias(e.target.value.split(','))} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Imágenes</label>
+                                        {imagenes.map((imagen, index) => (
+                                            <div key={index} className="d-flex mb-2">
+                                                <input
+                                                    type="text"
+                                                    className="form-control me-2"
+                                                    placeholder="Nombre"
+                                                    value={imagen.nombre}
+                                                    onChange={(e) => handleImageChange(index, 'nombre', e.target.value)}
+                                                />
+                                                <input
+                                                    type="text"
+                                                    className="form-control me-2"
+                                                    placeholder="Ruta de Archivo"
+                                                    value={imagen.rutaDeArchivo}
+                                                    onChange={(e) => handleImageChange(index, 'rutaDeArchivo', e.target.value)}
+                                                />
+                                                {imagen.id && <input type="hidden" value={imagen.id} />}
+                                                <button type="button" className="btn btn-danger" onClick={() => handleRemoveImage(index)}>-</button>
+                                            </div>
+                                        ))}
+                                        <button type="button" className="btn btn-custom-green" onClick={handleAddImage}>+ Agregar Imagen</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Cancelar</button>
+                                <button type="button" className="btn btn-primary" onClick={handleSaveProduct}>Guardar</button>
                             </div>
                         </div>
-                        {rutasImagenes.map((ruta, index) => (
-                            <div className="row" key={index}>
-                                <div className="col">
-                                    <label htmlFor={`productImage${index + 1}`} className="form-label">{`Imagen ${index + 1}`}</label>
-                                    <input type="text" placeholder='imagen del producto' className="form-control" id={`productImage${index + 1}`} value={ruta} onChange={(e) => {
-                                        const updatedRutasImagenes = [...rutasImagenes];
-                                        updatedRutasImagenes[index] = e.target.value;
-                                        setRutasImagenes(updatedRutasImagenes);
-                                    }} />
-                                </div>
-                            </div>
-                        ))}
                     </div>
                 </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Cerrar</button>
-                    <button type="button" className="btn btn-custom-green" onClick={handleSaveProduct}>{editingProductId ? 'Guardar Cambios' : 'Guardar Producto'}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-)}
-    {showModal && <div className="modal-backdrop fade show"></div>}
+            )}
         </div>
     );
 };
