@@ -38,10 +38,10 @@ function CustomNavbar() {
             </ul>
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <a className="nav-link text-white" href="/">Iniciar sesión</a>
+                <a className="nav-link text-white" href="/Login">Iniciar sesión</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-white btn btn-custom-orange borded rounded" href="/">Crear cuenta</a>
+                <a className="nav-link text-white btn btn-custom-orange borded rounded" href="/crearcuenta">Crear cuenta</a>
               </li>
             </ul>
           </div>
