@@ -6,8 +6,9 @@ import { getAllProducts } from "../interceptors/product.interceptor";
 
 const HomePage = () => {
   const [list, setList] = useState([]);
-  const [filteredList, setFilteredList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Todos");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(4);
 
   const categories = ["Todos", "Hoteles", "Apartamentos", "Casas"];
 
@@ -16,11 +17,9 @@ const HomePage = () => {
       try {
         const data = await getAllProducts();
         setList(data);
-        setFilteredList(data);
       } catch (error) {
         console.error(error);
-        setList(null);
-        setFilteredList(null);
+        setList([]);
       }
     };
 
@@ -29,12 +28,19 @@ const HomePage = () => {
 
   const filterByCategory = (category) => {
     setSelectedCategory(category);
-    if (category === "Todos") {
-      setFilteredList(list);
-    } else {
-      setFilteredList(list.filter(item => item.category === category));
-    }
+    setCurrentPage(1);
   };
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  //reglas para filtrado y paginado
+  const filteredList = list.filter(item => selectedCategory === "Todos" ? true : item.category === selectedCategory);
+  const totalPages = Math.ceil(filteredList.length / productsPerPage);
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const endIndex = startIndex + productsPerPage;
+  const currentProducts = filteredList.slice(startIndex, endIndex);
 
   return (
     <>
@@ -56,10 +62,10 @@ const HomePage = () => {
             </button>
           ))}
         </div>
-        {filteredList != null ? (
+        {currentProducts.length > 0 ? (
           <div className="d-lg-flex flex-lg-wrap row">
             <div className="d-flex flex-nowrap overflow-auto scroll-container">
-              {filteredList.map((producto) => (
+              {currentProducts.map((producto) => (
                 <div key={producto.id} className="col-12 col-md-6 col-lg-3 mb-4 flex-shrink-0">
                   <Card item={producto} />
                 </div>
@@ -71,6 +77,15 @@ const HomePage = () => {
             <h4 className="fs-3 text-center m-5">No hay productos disponibles</h4>
           </div>
         )}
+        <nav aria-label="Page navigation" className="">
+          <ul className="pagination justify-content-center">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <li key={index} className={`page-item ${index + 1 === currentPage ? "active" : ""}`}>
+                <button className={`page-link ${index + 1 === currentPage ? "custom-green-page-link-active" : "custom-green-page-link"}`} onClick={() => paginate(index + 1)}>{index + 1}</button>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </>
   );

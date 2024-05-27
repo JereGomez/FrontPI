@@ -84,12 +84,38 @@
     }
 
     .scroll-container::-webkit-scrollbar-thumb {
-      background-color: rgba(0, 0, 0, 0.5); /* Color del thumb */
-      border-radius: 10px; /* Borde redondeado */
+      background-color: rgba(0, 0, 0, 0.5); 
+      border-radius: 10px; 
     }
 
     .scroll-container::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.1); /* Color del track */
+      background: rgba(0, 0, 0, 0.1); 
+    }
+
+    /*páginacion HOME*/
+    .custom-green-nav {
+      background-color:#2a8584; 
+      color: #1d6b6a !important;
+    }
+    
+    .custom-green-page-link-active{
+      background-color: #2a8584 !important; 
+      border-color: #2a8584 !important;
+      color: #ffffff !important;
+    }
+
+    .custom-green-page-link {
+      background-color: #2a858480 !important; 
+      border-color: #2a858480 !important; 
+      color: #ffffff !important;
+    }
+    
+    .custom-green-page-link:hover {
+      background-color: #2a8584 !important; 
+      border-color: #2a8584 !important; 
+    }
+    .btn-shadow:active {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
     }
 
     /*NAVBAR*/
