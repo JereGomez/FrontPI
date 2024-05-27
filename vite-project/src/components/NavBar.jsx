@@ -50,9 +50,9 @@ function CustomNavbar() {
       <p className='lead-navbar text-center text-light d-none d-md-flex'>Encuentra instantáneamente las mejores ofertas en hoteles, glampings, hostales y mucho más!</p>
       {/* Contenedor para el formulario de filtros */}
       <div className="container mt-3 mb-2">
-        <form className="d-none d-sm-flex justify-content-center">
-          <select className="form-select me-2 text-green p-2" style={{ maxWidth: '250px' }}>
-            <option value="" disabled selected> Á donde vamos</option>
+        <form className="d-flex flex-column flex-sm-row justify-content-center align-items-center">
+          <select className="form-select mb-2 mb-sm-0 me-0 me-sm-2 text-green p-2" style={{ maxWidth: '250px' }}>
+            <option value="" disabled selected>Á donde vamos</option>
             <option value="paris">París</option>
             <option value="newyork">Nueva York</option>
             <option value="tokyo">Tokio</option>
@@ -60,17 +60,17 @@ function CustomNavbar() {
           </select>
           <input
             type="date"
-            className="form-control me-2 text-green p-2"
+            className="form-control mb-2 mb-sm-0 me-0 me-sm-2 text-green p-2"
             style={{ maxWidth: '250px' }}
             placeholder="Check-in"
           />
           <input
             type="date"
-            className="form-control me-2 text-green p-2"
+            className="form-control mb-2 mb-sm-0 me-0 me-sm-2 text-green p-2 w-100"
             style={{ maxWidth: '250px' }}
             placeholder="Check-out"
           />
-          <button type="submit" className="btn btn-custom-orange">Buscar &rarr;</button>
+          <button type="submit" className="boton-filtros-nav btn btn-custom-orange p-md-2">Buscar &rarr;</button>
         </form>
       </div>
     </div>

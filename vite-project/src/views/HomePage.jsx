@@ -9,7 +9,7 @@ const HomePage = () => {
   const [filteredList, setFilteredList] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Todos");
 
-  const categories = ["Todos", "Hoteles", "Apartamentos", "Casas Rurales"];
+  const categories = ["Todos", "Hoteles", "Apartamentos", "Casas"];
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -49,7 +49,7 @@ const HomePage = () => {
             <button
               key={category}
               type="button"
-              className={`btn btn-custom-green p-md-2 ${selectedCategory === category ? "active" : ""} btn-sm btn-md`}
+              className={`btn btn-custom-green p-2 ${selectedCategory === category ? "active" : ""} btn-sm btn-md`}
               onClick={() => filterByCategory(category)}
             >
               {category}

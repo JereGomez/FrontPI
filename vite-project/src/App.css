@@ -111,6 +111,9 @@
         width: 240px;
     }
 
+ 
+    
+
     /*DETALLE*/
     .large-image{
       width: 600px;
@@ -206,6 +209,10 @@
 
       .gallery-popup img {
         max-height: 200px;
+      }
+         /*para el boton del nav de buscar*/
+      .boton-filtros-nav {
+        width: 250px;
       }
     }
 
