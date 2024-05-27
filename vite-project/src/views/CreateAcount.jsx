@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import CustomNavbar from '../components/NavBar'
+import { registeruser } from '../interceptors/user.interceptor'
+import fondoimagen from 'Globos.png'
 
 const CreateAcount = () => {
 const [usuario,setusuario] = useState({
@@ -13,13 +15,25 @@ const [show,setshow] = useState(false)
 
 const [error,seterror] = useState (false)
 
-const HandleSubmit  = (event) =>{
+const HandleSubmit  = async (event) =>{
 
     event.preventDefault()
 
-    if (usuario.nombre.length && usuario.contraseña.length > 8) {
+    if (usuario.nombre.length && usuario.contraseña.length < 2) {
+      try
+      {
+        await registeruser(usuario);
+        
         setshow(true)
-        seterror(false)
+        seterror(false)}
+
+        
+        catch(error){
+          seterror(true);
+         console.log('Ocurrio un error al crear el usuario',error);
+              
+        }
+       
         
     }
     else{
@@ -29,10 +43,14 @@ const HandleSubmit  = (event) =>{
 
 
 
+
+
   return (
-    <div>
+    
+    <div className='card body'>
      <CustomNavbar/>
      <h1 className='titlecuenta'>Crea tu cuenta</h1>
+     
      <form onSubmit={HandleSubmit}>
   <div class="mb-3" >
     <label for="exampleInputEmail1" class="card-title">Nombre</label>
@@ -59,7 +77,7 @@ const HandleSubmit  = (event) =>{
 </form>
 {show && <h1 className='titlecuenta'>Te has registrado correctamente</h1> }
 {error && <p className='titlecuenta'>Verifique su informacion nuevamente</p>}
-  
+<img src={fondoimagen} class="img-fluid" alt=""/>
   
     </div>
   )
