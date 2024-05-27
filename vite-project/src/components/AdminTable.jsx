@@ -184,19 +184,16 @@ const AdminTable = () => {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title">{editingProductId ? 'Editar Producto' : 'Agregar Producto'}</h5>
-                                <button type="button" className="close" onClick={handleCloseModal}>
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
                             </div>
                             <div className="modal-body">
                                 <form>
                                     <div className="form-group">
                                         <label htmlFor="nombre">Nombre</label>
-                                        <input type="text" className="form-control" id="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                                        <input type="text" className="form-control" id="nombre" placeholder="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="descripcion">Descripción</label>
-                                        <textarea className="form-control" id="descripcion" value={descripcion} onChange={(e) => setDescripcion(e.target.value)}></textarea>
+                                        <textarea className="form-control" id="descripcion" placeholder='descripción' value={descripcion} onChange={(e) => setDescripcion(e.target.value)}></textarea>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="capacidad">Capacidad</label>
@@ -208,7 +205,7 @@ const AdminTable = () => {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="categorias">Categorías</label>
-                                        <input type="text" className="form-control" id="categorias" value={categorias} onChange={(e) => setCategorias(e.target.value.split(','))} />
+                                        <input type="text" className="form-control" id="categorias" placeholder='categoría' value={categorias} onChange={(e) => setCategorias(e.target.value.split(','))} />
                                     </div>
                                     <div className="form-group">
                                         <label>Imágenes</label>
@@ -217,14 +214,14 @@ const AdminTable = () => {
                                                 <input
                                                     type="text"
                                                     className="form-control me-2"
-                                                    placeholder="Nombre"
+                                                    placeholder="Nombre de imagen"
                                                     value={imagen.nombre}
                                                     onChange={(e) => handleImageChange(index, 'nombre', e.target.value)}
                                                 />
                                                 <input
                                                     type="text"
                                                     className="form-control me-2"
-                                                    placeholder="Ruta de Archivo"
+                                                    placeholder="Ruta de imagen"
                                                     value={imagen.rutaDeArchivo}
                                                     onChange={(e) => handleImageChange(index, 'rutaDeArchivo', e.target.value)}
                                                 />

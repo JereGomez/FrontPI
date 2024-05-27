@@ -58,20 +58,18 @@ function CustomNavbar() {
             <option value="tokyo">Tokio</option>
             <option value="london">Londres</option>
           </select>
-          <select className="form-select me-2 text-green p-2" style={{ maxWidth: '250px' }}>
-            <option value="" disabled selected>Check-in - Check-out</option>
-            <option value="2024-06-01">1 Junio 2024</option>
-            <option value="2024-06-02">2 Junio 2024</option>
-            <option value="2024-06-03">3 Junio 2024</option>
-            <option value="2024-06-04">4 Junio 2024</option>
-          </select>
-          <select className="form-select me-2 text-green p-2" style={{ maxWidth: '250px' }}>
-            <option value="" disabled selected>2 huéspedes - 1 habitación</option>
-            <option value="2024-06-05">2 huéspedes - 2 habitación</option>
-            <option value="2024-06-06">3 huéspedes - 3 habitación</option>
-            <option value="2024-06-07">4 huéspedes - 4 habitación</option>
-            <option value="2024-06-08">5 huéspedes - 5 habitación</option>
-          </select>
+          <input
+            type="date"
+            className="form-control me-2 text-green p-2"
+            style={{ maxWidth: '250px' }}
+            placeholder="Check-in"
+          />
+          <input
+            type="date"
+            className="form-control me-2 text-green p-2"
+            style={{ maxWidth: '250px' }}
+            placeholder="Check-out"
+          />
           <button type="submit" className="btn btn-custom-orange">Buscar &rarr;</button>
         </form>
       </div>
