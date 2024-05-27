@@ -117,12 +117,13 @@
     /*DETALLE*/
     .large-image{
       width: 600px;
+      height: 370px;
     }
 
     .smaller-image {
-      max-width: 128px; 
+      width: 128px; 
       height: auto; 
-      height: 95px;
+      height: 85px;
     }
 
     /*GALERIA DE IMAGENES DE DETALLE*/
@@ -167,6 +168,7 @@
       }
       .large-image {
          width: 600px; 
+         height: 450px;
          margin: 0.2em;
        }
      
@@ -183,6 +185,7 @@
     @media (min-width: 576px) and (max-width: 1020px) {
      .large-image {
         width: 450px; 
+        height: 335px;
         margin: 0.2em;
       }
     
@@ -198,6 +201,7 @@
     @media (max-width: 576px) {
       .large-image {
         width: 300px; 
+        height: auto;
         margin: 0.2em;
       }
     
@@ -213,6 +217,18 @@
          /*para el boton del nav de buscar*/
       .boton-filtros-nav {
         width: 250px;
+      }
+
+      .gallery-popup {
+        position: fixed;
+        top: 30%;
+        left: 50%;
+        transform: translate(-51%, -50%);
+        z-index: 1000; 
+        background-color: rgba(0, 0, 0, 0.685); 
+        padding: 35px;
+        width: 99%; 
+        max-width: 800px; 
       }
     }
 
