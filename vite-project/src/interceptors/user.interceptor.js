@@ -19,8 +19,8 @@ const interceptor = axios.create({
 }
 
 
-export const registeruser = async(user) => {
-    try{ const response = await interceptor.post('/',user)
+export const registerUser = async(user) => {
+    try{ const response = await interceptor.post('/registrar',user)
         return response.data
     }
     catch(error){
@@ -29,14 +29,3 @@ export const registeruser = async(user) => {
     }
     
 }
-
-//export const edituser = async(userId,userData) =>{
-  //  try{
-   //     const response = await interceptor.put(`/${userId}`,userData)
-   //    return response.data
-
- //   }
-  //  catch(error){
-//console.error('Ocurrio un error al editar el usuario');
- //  }
-//}

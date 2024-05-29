@@ -260,13 +260,8 @@
   /*TITULO CREAR CUENTA*/
 
   .titlecuenta{
-    
     margin-bottom: 15px;
     font-weight: bold;
-   
-   
-    
-    
   }
 
 
@@ -305,18 +300,14 @@
 }
 
 .btn-crear-cuenta{
-  
   background-color:lightgray; 
   color: white;
   border-radius: 30px;
-  width: 900px;
- height: 70px;
- margin-bottom: 50px;
- margin-top: 10px;
- font-size: x-large;
-    
-  
-  
+  width: 200px;
+  height: 70px;
+  margin-bottom: 50px;
+  margin-top: 10px;
+  font-size: x-large;
 }
 
 .link-login{
@@ -338,11 +329,9 @@
 
 
  .login-background{
-display: flex;
-justify-content:end;
-align-items: center;
-  
-  
+    display: flex;
+    justify-content:end;
+    align-items: center;
  }
 
 
@@ -353,6 +342,7 @@ align-items: center;
    width: 55vh;
    height: 70vh;
    margin-right:100px;
+   margin-top: 100px !important;
    margin-bottom: 406px;
    align-items: center;
  }
@@ -370,15 +360,12 @@ align-items: center;
 
 
  .btn-iniciar-sesion{
-
   background-color:lightgray; 
   color: white;
   border-radius: 30px;
-  width: 500px;
- 
- margin-top: 10px;
- font-size: x-large;
-
+  width: 100%;
+  margin-top: 10px;
+  font-size: x-large;
  }
 
 
@@ -387,10 +374,9 @@ align-items: center;
   color: white;
   border-radius: 30px;
   width: 500px;
- margin-bottom: 10px;
- margin-top: 10px;
- font-size: x-large;
-  
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: x-large;
  }
 
  .text-end {
@@ -402,11 +388,11 @@ align-items: center;
   color: black;
   border-radius: 30px;
   border:  2px solid black;
-  width: 500px;
- margin-bottom: 10px;
- margin-top: 20px;
- font-size: x-large;
-font-weight: bold;
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
  }
 
  .text-danger{
@@ -418,9 +404,8 @@ font-weight: bold;
 
 
  .error-login{
-  font-size: x-large;
-  margin-left: 30px;
-
+  font-size: 14px;
+  margin-left: 10px;
  }
 
 
