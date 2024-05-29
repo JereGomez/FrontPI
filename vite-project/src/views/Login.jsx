@@ -1,15 +1,15 @@
 import React from 'react'
-import CustomNavbar from '../components/NavBar'
+
 
 const Login = () => {
   return (
-    <div>
-      <CustomNavbar/>
-      <div>
+    <div >
+      
+      
     
+
+     <form >
      <h1 className='titlecuenta'>Iniciar Sesión</h1>
-     <form>
-  
   <div class="mb-3" >
     <label for="exampleInputEmail1" class="card-title">Correo Electronico</label>
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
@@ -23,7 +23,7 @@ const Login = () => {
   <button type="submit" class="btn btn-custom-orange">Iniciar Sesion</button>
 </form>
     </div>
-    </div>
+    
   )
 }
 
