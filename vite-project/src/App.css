@@ -137,9 +137,6 @@
         width: 240px;
     }
 
- 
-    
-
     /*DETALLE*/
     .large-image{
       width: 600px;
@@ -184,9 +181,9 @@
       margin: auto;
     }
 
-    /*DETALLE RESPONSIVE MONITOR*/
+    /*RESPONSIVE MONITOR*/
     @media (min-width: 1400px) {
-
+      /*detalle*/
       .detail-container {
         position: relative;
         left: 50%;
@@ -196,8 +193,7 @@
          width: 600px; 
          height: 450px;
          margin: 0.2em;
-       }
-     
+      }
        .smaller-image {
          max-width: 140px; 
          margin: 0.1em;
@@ -207,8 +203,9 @@
    
      }
 
-    /*DETALLE RESPONSIVE TABLET*/
+    /*RESPONSIVE TABLET*/
     @media (min-width: 576px) and (max-width: 1020px) {
+      /*detalle*/
      .large-image {
         width: 450px; 
         height: 335px;
@@ -223,8 +220,9 @@
   
     }
 
-    /*DETALLE RESPONSIVE MOBILE*/
+    /*RESPONSIVE MOBILE*/
     @media (max-width: 576px) {
+      /*detalle*/
       .large-image {
         width: 300px; 
         height: auto;
@@ -236,15 +234,10 @@
         margin: 0.2em;
         height: 75px;
       }
-
+      /*galeria detalle*/
       .gallery-popup img {
         max-height: 200px;
       }
-         /*para el boton del nav de buscar*/
-      .boton-filtros-nav {
-        width: 250px;
-      }
-
       .gallery-popup {
         position: fixed;
         top: 30%;
@@ -256,6 +249,11 @@
         width: 99%; 
         max-width: 800px; 
       }
+      /*para el boton del nav de buscar*/
+      .boton-filtros-nav {
+        width: 250px;
+      }
+
     }
 
 

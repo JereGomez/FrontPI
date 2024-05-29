@@ -9,14 +9,16 @@ const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(4);
-
-  const categories = ["Todos", "Hoteles", "Apartamentos", "Casas"];
+  const [categories, setCategories] = useState(["Todos"]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const data = await getAllProducts();
         setList(data);
+        
+        const uniqueCategories = Array.from(new Set(data.flatMap(producto => producto.categorias.map(categoria => categoria.nombre))));
+        setCategories(["Todos", ...uniqueCategories]);
       } catch (error) {
         console.error(error);
         setList([]);
@@ -35,8 +37,8 @@ const HomePage = () => {
     setCurrentPage(pageNumber);
   };
 
-  //reglas para filtrado y paginado
-  const filteredList = list.filter(item => selectedCategory === "Todos" ? true : item.category === selectedCategory);
+  // Reglas para filtrado y paginado
+  const filteredList = list.filter(item => selectedCategory === "Todos" ? true : item.categorias.some(categoria => categoria.nombre === selectedCategory));
   const totalPages = Math.ceil(filteredList.length / productsPerPage);
   const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;

@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { getAllProducts, createProduct, editProduct, deleteProduct } from '../interceptors/product.interceptor';
+import Caracteristica from './Caracteristica';
+import Categoria from './Categoria'; 
+import { getAllCategorias } from '../interceptors/categoria.interceptor';
+import { getAllCaracteristicas } from '../interceptors/caracteristica.interceptor';
 
 const AdminTable = () => {
     const [products, setProducts] = useState([]);
@@ -10,7 +14,28 @@ const AdminTable = () => {
     const [capacidad, setCapacidad] = useState(0);
     const [precioNoche, setPrecioNoche] = useState(0.0);
     const [categorias, setCategorias] = useState([]);
+    const [selectedCategoryId, setSelectedCategoryId] = useState('');
+    const [caracteristicas, setCaracteristicas] = useState([]);
+    const [selectedCaracteristica, setSelectedCaracteristica] = useState('');
     const [imagenes, setImagenes] = useState([{ id: null, nombre: '', rutaDeArchivo: '' }]);
+
+    const loadCategoriesAndCharacteristics = async () => {
+        try {
+            const categoriasList = await getAllCategorias();
+            setCategorias(categoriasList);
+            
+            const caracteristicasList = await getAllCaracteristicas();
+            setCaracteristicas(caracteristicasList);
+        } catch (error) {
+            console.error("Ocurrió un error inesperado al traer las categorías y características:", error);
+            setCategorias([]);
+            setCaracteristicas([]);
+        }
+    };
+
+    useEffect(() => {
+        loadCategoriesAndCharacteristics();
+    }, []);
 
     const handleCloseModal = () => {
         setShowModal(false);
@@ -19,11 +44,13 @@ const AdminTable = () => {
         setDescripcion('');
         setCapacidad(0);
         setPrecioNoche(0.0);
-        setCategorias([]);
+        setSelectedCategoryId('');
+        setSelectedCaracteristica('');
         setImagenes([{ id: null, nombre: '', rutaDeArchivo: '' }]);
     };
 
     const handleShowModal = () => {
+        loadCategoriesAndCharacteristics();
         setShowModal(true);
     };
 
@@ -46,8 +73,13 @@ const AdminTable = () => {
                 descripcion,
                 capacidad,
                 precioNoche,
-                categorias,
-                imagenes
+                categorias: [{ id: selectedCategoryId }],
+                caracteristicas: [{ id: selectedCaracteristica }],
+                imagenes: imagenes.map(imagen => ({
+                    id: imagen.id,
+                    nombre: imagen.nombre,
+                    rutaDeArchivo: imagen.rutaDeArchivo
+                }))
             };
             await createProduct(newProduct);
             const productList = await getAllProducts();
@@ -66,7 +98,8 @@ const AdminTable = () => {
                 descripcion,
                 capacidad,
                 precioNoche,
-                categorias,
+                categorias: [{ id: selectedCategoryId }],
+                caracteristicas: [{ id: selectedCaracteristica }],
                 imagenes: imagenes.map(imagen => ({
                     id: imagen.id,
                     nombre: imagen.nombre,
@@ -81,6 +114,7 @@ const AdminTable = () => {
             console.error("Ocurrió un error al editar el producto:", error);
         }
     };
+    
 
     const handleDeleteProduct = async (productId) => {
         try {
@@ -108,7 +142,30 @@ const AdminTable = () => {
             }
         };
         fetchProducts();
+
+        const fetchCategorias = async () => {
+            try {
+                const categoriasList = await getAllCategorias();
+                setCategorias(categoriasList);
+            } catch (error) {
+                console.error("Ocurrió un error inesperado al traer las categorías:", error);
+                setCategorias([]);
+            }
+        };
+        fetchCategorias();
+
+        const fetchCaracteristicas = async () => {
+            try {
+                const caracteristicasList = await getAllCaracteristicas();
+                setCaracteristicas(caracteristicasList);
+            } catch (error) {
+                console.error("Ocurrió un error inesperado al traer las características:", error);
+                setCaracteristicas([]);
+            }
+        };
+        fetchCaracteristicas();
     }, []);
+    
 
     const handleImageChange = (index, field, value) => {
         const updatedImages = [...imagenes];
@@ -153,7 +210,7 @@ const AdminTable = () => {
                                 <th scope="row">{product.id}</th>
                                 <td>{product.nombre}</td>
                                 <td>{product.descripcion}</td>
-                                <td>{product.capacidad} personas</td>
+                                <td>{product.capacidad} personas</td>                              
                                 <td>${product.precioNoche}</td>
                                 <td>
                                     <button type="button" className="btn btn-danger me-2" onClick={() => handleDeleteProduct(product.id)}><i className="bi bi-trash3"></i></button>
@@ -177,7 +234,7 @@ const AdminTable = () => {
                     </tbody>
                 </table>
             )}
-
+    
             {showModal && (
                 <div className="modal fade show" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
                     <div className="modal-dialog" role="document">
@@ -205,7 +262,21 @@ const AdminTable = () => {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="categorias">Categorías</label>
-                                        <input type="text" className="form-control" id="categorias" placeholder='categoría' value={categorias} onChange={(e) => setCategorias(e.target.value.split(','))} />
+                                        <select className="form-select" id="categorias" value={selectedCategoryId} onChange={(e) => setSelectedCategoryId(e.target.value)}>
+                                            <option value="">Selecciona una categoría...</option>
+                                            {categorias.map((categoria) => (
+                                                <option key={categoria.id} value={categoria.id}>{categoria.nombre}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="caracteristica">Característica</label>
+                                        <select className="form-select" id="caracteristica" value={selectedCaracteristica} onChange={(e) => setSelectedCaracteristica(e.target.value)}>
+                                            <option value="">Selecciona una característica...</option>
+                                            {caracteristicas.map((caracteristica) => (
+                                                <option key={caracteristica.id} value={caracteristica.id}>{caracteristica.nombre}</option>
+                                            ))}
+                                        </select>
                                     </div>
                                     <div className="form-group">
                                         <label>Imágenes</label>
@@ -235,14 +306,37 @@ const AdminTable = () => {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Cancelar</button>
-                                <button type="button" className="btn btn-primary" onClick={handleSaveProduct}>Guardar</button>
+                                <button type="button" className="btn btn-custom-green" onClick={handleSaveProduct}>Guardar</button>
                             </div>
                         </div>
                     </div>
                 </div>
             )}
+
+            <button
+                type="button"
+                className="btn btn-custom-green mt-3"
+                data-bs-toggle="modal"
+                data-bs-target="#caracteristicaModal"
+            >
+                Crear Nueva Característica
+            </button>
+
+            <button
+                type="button"
+                className="btn btn-custom-green mt-3 mx-2"
+                data-bs-toggle="modal"
+                data-bs-target="#categoriaModal"
+            >
+                Crear Nueva Categoría
+            </button>
+
+            <Caracteristica />
+
+            <Categoria />
         </div>
     );
 };
 
 export default AdminTable;
+
