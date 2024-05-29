@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LogoImage from '/Proyecto Integrador Equipo 8.png';
 import BgNavBar from '/pexels-tomfisk-1518723.jpg';
 
 function CustomNavbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('user') !== null);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setIsLoggedIn(false);
+    window.location.reload(); 
+  };
+
   return (
     <div className='pb-3' style={{ 
       backgroundImage: `url(${BgNavBar})`, 
@@ -37,12 +45,22 @@ function CustomNavbar() {
               </li>
             </ul>
             <ul className="navbar-nav ms-auto">
-              <li className="nav-item">
-                <a className="nav-link text-white" href="/Login">Iniciar sesión</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link text-white btn btn-custom-orange borded rounded" href="/crearcuenta">Crear cuenta</a>
-              </li>
+              {isLoggedIn ? (
+                <>
+                  <li className="nav-item">
+                    <button className="nav-link btn btn-custom-orange rounded me-2" onClick={handleLogout}>Cerrar sesión</button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <a className="nav-link text-white" href="/Login">Iniciar sesión</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link text-white btn btn-custom-orange borded rounded" href="/crearcuenta">Crear cuenta</a>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

@@ -3,6 +3,11 @@ import LogoImage from '/Proyecto Integrador Equipo 8.png';
 import BgNavBar from '/pexels-tomfisk-1518723.jpg';
 
 function NavAdmin() {
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    window.location.reload(); 
+  };
+
   return (
     <div style={{ 
       backgroundImage: `url(${BgNavBar})`, 
@@ -25,18 +30,18 @@ function NavAdmin() {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img className='rounded-circle' src="https://dummyimage.com/40x40/000/fff" alt="perfil" />
-              </a>
-              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a className="dropdown-item" href="#">Perfil</a></li>
-                <li><a className="dropdown-item" href="#">Cerrar sesión</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img className='rounded-circle' src="https://dummyimage.com/40x40/000/fff" alt="perfil" />
+                </a>
+                <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a className="dropdown-item" href="#">Perfil</a></li>
+                  <li><button className="dropdown-item" onClick={handleLogout}>Cerrar sesión</button></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>      
     </div>
