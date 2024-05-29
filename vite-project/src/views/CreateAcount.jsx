@@ -20,7 +20,7 @@ const HandleSubmit  = async (event) =>{
 
     event.preventDefault()
 
-    if (usuario.nombre.length && usuario.contraseña.length > 2) {
+    if (usuario.nombre.length && usuario.contraseña.length > 5) {
       try
       {
         await registeruser(usuario);
@@ -88,7 +88,7 @@ const HandleSubmit  = async (event) =>{
   
 </form>
 {show && <h1 className='titlecuenta '>Te has registrado correctamente</h1> }
-{error && <p className='titlecuenta '>Verifique su informacion nuevamente</p>}
+{error && <p className='text-danger '>Verifique su informacion nuevamente</p>}
 </div>
 </div>
    
