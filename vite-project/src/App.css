@@ -236,14 +236,81 @@
   /*TITULO CREAR CUENTA*/
 
   .titlecuenta{
-    display: flex;
-   color: white;
-    padding: 20px;
-    justify-content:center;
-    background-color: #e65a19;
+    
+    margin-bottom: 15px;
+    font-weight: bold;
+   
+   
     
     
   }
+
+
+ /*CREAR CUENTA*/
+
+ .create-account-container{
+  height: 100vh;
+  display: flex; 
+  align-items: center;
+  
+ }
+
+ .image-cuenta{
+  width: 100%;
+  height: 109.5vh;
+  object-fit: cover;
+ }
+
+ .form-side{
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  height: 109.5vh;
+ }
+
+ .form-container{
+  max-width: 900px;
+  
+ }
+
+.logo-gotravel{
+  width: 10;
+  height: 100px;
+}
+
+.btn-crear-cuenta{
+  
+  background-color:lightgray; 
+  color: white;
+  border-radius: 30px;
+  width: 900px;
+ height: 70px;
+ margin-bottom: 154px;
+ margin-top: 10px;
+ font-size: x-large;
+    
+  
+  
+}
+
+.link-login{
+  color: black;
+  margin-left: 10px;
+}
+
+
+.text-inputs-form{
+  color: rgb(100, 98, 98);
+  
+  margin: 10px;
+  font-size: x-large;
+  
+}
+
+
+ /*INICIAR SESION*/
 
 
  
