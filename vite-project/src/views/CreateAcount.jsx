@@ -14,27 +14,59 @@ const CreateAcount = () => {
 
   const [show, setshow] = useState(false);
 
-  const [error, seterror] = useState(false);
+  const [errors, setErrors] = useState({
+    nombre: "",
+    apellido: "",
+    email: "",
+    contrasenia: "",
+  });
+  
+
+ 
+  const validateForm = () => {
+    let formIsValid = true;
+    let errors = {};
+
+    if (usuario.nombre.length < 5) {
+      formIsValid = false;
+      errors["nombre"] = "El nombre debe tener al menos 5 caracteres.";
+    }
+
+    if (usuario.apellido.length < 5) {
+      formIsValid = false;
+      errors["apellido"] = "El apellido debe tener al menos 5 caracteres.";
+    }
+
+    if (usuario.email === ""){
+      formIsValid = false;
+      errors["email"] = "El email no es válido.";
+    }
+
+    if (usuario.contrasenia.length < 8) {
+      formIsValid = false;
+      errors["contrasenia"] = "La contraseña debe tener al menos 6 caracteres.";
+    }
+
+    setErrors(errors);
+    return formIsValid;
+  };
+
+
 
   const HandleSubmit = async (event) => {
     event.preventDefault();
 
     if (
-      usuario.nombre.length &&
-      usuario.apellido.length &&
-      usuario.contrasenia.length > 5 &&
-      usuario.email.length
+      validateForm()
     ) {
       try {
         await registerUser(usuario);
         setshow(true);
-        seterror(false);
+        setErrors({});
       } catch (error) {
-        seterror(true);
+        setErrors({form: "Ocurrió un error al crear el usuario." });
         console.log("Ocurrió un error al crear el usuario", error);
       }
-    } else {
-      seterror(true);
     }
   };
 
@@ -76,6 +108,9 @@ const CreateAcount = () => {
                 setusuario({ ...usuario, nombre: event.target.value })
               }
             />
+             {errors.nombre && (
+          <p className="text-danger ">{errors.nombre} </p>
+        )}
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="text-inputs-form">
@@ -89,6 +124,9 @@ const CreateAcount = () => {
                 setusuario({ ...usuario, apellido: event.target.value })
               }
             />
+             {errors.apellido && (
+          <p className="text-danger ">{errors.apellido} </p>
+        )}
           </div>
 
           <div class="mb-2">
@@ -106,6 +144,9 @@ const CreateAcount = () => {
                 setusuario({ ...usuario, email: event.target.value })
               }
             />
+             {errors.email && (
+          <p className="text-danger ">{errors.email}</p>
+        )}
           </div>
           <div class="mb-3">
             <label for="InputPassword2" class="text-inputs-form">
@@ -120,6 +161,9 @@ const CreateAcount = () => {
                 setusuario({ ...usuario, contrasenia: event.target.value })
               }
             />
+             {errors.contrasenia&& (
+          <p className="text-danger ">{errors.contrasenia} </p>
+        )}
           </div>
           <p className="titlecuenta">
             Al crear esta cuenta estas de acuerdo con los Terminos y Condiciones
@@ -131,8 +175,8 @@ const CreateAcount = () => {
         {show && (
           <h1 className="titlecuenta ">Te has registrado correctamente</h1>
         )}
-        {error && (
-          <p className="text-danger ">Verifique su informacion nuevamente</p>
+        {errors.form && (
+          <p className="text-danger ">{errors.form}</p>
         )}
       </div>
     </div>
