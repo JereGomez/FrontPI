@@ -5,6 +5,7 @@ const interceptor = axios.create({
   withCredentials: true,
 });
 
+//login
 export const loginUser = async (user) => {
   try {
     const response = await interceptor.post("/login", user);
@@ -16,6 +17,7 @@ export const loginUser = async (user) => {
   }
 };
 
+//logout
 export const logoutUser = async () => {
   try {
     const response = await interceptor.get("logout");
