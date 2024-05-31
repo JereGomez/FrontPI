@@ -27,6 +27,7 @@ const Login = () => {
       const response = await loginUser(registro);
       setShow(true);
       setError(false);
+      window.location.replace("/")
       console.log(response.role);
       if (response.role == "ROLE_ADMIN" || response.role == "ROLE_USER") {
         console.log(registro);
