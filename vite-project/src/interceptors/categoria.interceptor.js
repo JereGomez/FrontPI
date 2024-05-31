@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const interceptor = axios.create({
-  baseURL: 'http://localhost:8081/categoria',
+  baseURL: 'http://localhost:8081/categorias',
+  withCredentials: true,
 });
 
 export const getAllCategorias = async () => {
@@ -26,7 +27,9 @@ export const getCategoriaById = async (id) => {
 
 export const createCategoria = async (categoria) => {
   try {
-    const response = await interceptor.post('/', categoria);
+    const response = await interceptor.post('/', categoria, {
+      withCredentials:true
+    });
     return response.data;
   } catch (error) {
     console.error('Ocurrió un error al registrar una nueva categoria:', error);
@@ -36,7 +39,9 @@ export const createCategoria = async (categoria) => {
 
 export const editCategoria = async (categoriaId, categoriaData) => {
   try {
-    const response = await interceptor.put(`/${categoriaId}`, categoriaData);
+    const response = await interceptor.put(`/${categoriaId}`, categoriaData, {
+      withCredentials:true
+    });
     return response.data;
   } catch (error) {
     console.error('Ocurrió un error al editar la categoria:', error.response ? error.response.data : error.message);
@@ -46,7 +51,9 @@ export const editCategoria = async (categoriaId, categoriaData) => {
 
 export const deleteCategoria = async (categoriaId) => {
   try {
-    await interceptor.delete(`/${categoriaId}`);
+    await interceptor.delete(`/${categoriaId}`, {
+      withCredentials:true
+    });
   } catch (error) {
     console.error('Ocurrió un error al eliminar la categoria:', error);
     throw error;

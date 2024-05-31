@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const interceptor = axios.create({
-  baseURL: 'http://localhost:8081/caracteristica',
+  baseURL: 'http://localhost:8081/caracteristicas'
 });
 
 export const getAllCaracteristicas = async () => {
@@ -26,7 +26,9 @@ export const getCaracteristicaById = async (id) => {
 
 export const createCaracteristica = async (caracteristica) => {
   try {
-    const response = await interceptor.post('/', caracteristica);
+    const response = await interceptor.post('/admin', caracteristica, {
+      withCredentials:true
+    });
     return response.data;
   } catch (error) {
     console.error('Ocurrió un error al registrar una nueva caracteristica:', error);
@@ -36,7 +38,9 @@ export const createCaracteristica = async (caracteristica) => {
 
 export const editCaracteristica = async (caracteristicaId, caracteristicaData) => {
   try {
-    const response = await interceptor.put(`/${caracteristicaId}`, caracteristicaData);
+    const response = await interceptor.put(`/admin/${caracteristicaId}`, caracteristicaData, {
+      withCredentials:true
+    });
     return response.data;
   } catch (error) {
     console.error('Ocurrió un error al editar la caracteristica:', error.response ? error.response.data : error.message);
@@ -46,7 +50,9 @@ export const editCaracteristica = async (caracteristicaId, caracteristicaData) =
 
 export const deleteCaracteristica = async (caracteristicaId) => {
   try {
-    await interceptor.delete(`/${caracteristicaId}`);
+    await interceptor.delete(`/admin/${caracteristicaId}`, {
+      withCredentials:true
+    });
   } catch (error) {
     console.error('Ocurrió un error al eliminar la caracteristica:', error);
     throw error;

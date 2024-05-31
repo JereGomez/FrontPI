@@ -28,6 +28,7 @@ const HomePage = () => {
     fetchProducts();
   }, []);
 
+
   const filterByCategory = (category) => {
     setSelectedCategory(category);
     setCurrentPage(1);
