@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import LogoImage from '/Proyecto Integrador Equipo 8.png';
 import BgNavBar from '/pexels-tomfisk-1518723.jpg';
+import { logoutUser } from '../interceptors/auth.interceptor';
 
 function CustomNavbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('user') !== null);
 
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    setIsLoggedIn(false);
-    window.location.reload(); 
+  const handleLogout = async () => {
+    try {
+      await logoutUser(); 
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.error('Error al hacer logout:', error);
+    } finally {
+      window.location.reload();
+    }
   };
 
   return (

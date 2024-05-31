@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LogoImage from '/Proyecto Integrador Equipo 8.png';
 import BgNavBar from '/pexels-tomfisk-1518723.jpg';
+import { logoutUser } from '../interceptors/auth.interceptor';
 
 function NavAdmin() {
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    window.location.reload(); 
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('user') !== null);
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser(); 
+      setIsLoggedIn(false); 
+    } catch (error) {
+      console.error('Error al hacer logout:', error);
+    } finally {
+      window.location.reload(); 
+    }
   };
 
   return (

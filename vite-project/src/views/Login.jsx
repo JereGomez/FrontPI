@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ImagenLogin from "/Globos.png";
 import ImagenGoogle from "/png-transparent-logo-google-g-google-s-logo-icon.png";
 import { loginUser } from "../interceptors/auth.interceptor";
-import { saveUserToLocalStorage } from "../utils/localStorageUtils";
 
 const Login = () => {
   const [registro, setRegistro] = useState({
