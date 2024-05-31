@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const interceptor = axios.create({
-  baseURL: 'http://localhost:8081/caracteristicas'
+  baseURL: 'http://localhost:8081/caracteristicas',
+  withCredentials: true,
 });
 
 export const getAllCaracteristicas = async () => {
@@ -16,7 +17,9 @@ export const getAllCaracteristicas = async () => {
 
 export const getCaracteristicaById = async (id) => {
   try {
-    const response = await interceptor.get(`/${id}`);
+    const response = await interceptor.get(`/${id}`, {
+      withCredentials:true
+    });
     return response.data;
   } catch (error) {
     console.error('Ocurrió un error al traer el producto específico:', error);
