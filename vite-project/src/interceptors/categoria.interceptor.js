@@ -27,7 +27,7 @@ export const getCategoriaById = async (id) => {
 
 export const createCategoria = async (categoria) => {
   try {
-    const response = await interceptor.post('/', categoria, {
+    const response = await interceptor.post('/admin/', categoria, {
       withCredentials:true
     });
     return response.data;
@@ -39,7 +39,7 @@ export const createCategoria = async (categoria) => {
 
 export const editCategoria = async (categoriaId, categoriaData) => {
   try {
-    const response = await interceptor.put(`/${categoriaId}`, categoriaData, {
+    const response = await interceptor.put(`/admin/${categoriaId}`, categoriaData, {
       withCredentials:true
     });
     return response.data;
@@ -51,7 +51,7 @@ export const editCategoria = async (categoriaId, categoriaData) => {
 
 export const deleteCategoria = async (categoriaId) => {
   try {
-    await interceptor.delete(`/${categoriaId}`, {
+    await interceptor.delete(`/admin/${categoriaId}`, {
       withCredentials:true
     });
   } catch (error) {

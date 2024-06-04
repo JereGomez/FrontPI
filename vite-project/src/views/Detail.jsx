@@ -16,6 +16,7 @@ const Detail = () => {
     const fetchProduct = async () => {
       try {
         const data = await getProductsById(params.id);
+        console.log(data)
         setProduct(data);
       } catch (error) {
         console.error(error);
@@ -72,7 +73,6 @@ const Detail = () => {
                 <p>{product?.descripcion}</p>
                 <p>{product?.capacidad} personas</p>
                 <p>Precio por noche ${product?.precioNoche} USD</p>
-                <p>Pileta climatizada</p>
                 <button className='btn btn-custom-orange w-75'>Reservar</button>
               </div>
             </div>

@@ -254,6 +254,20 @@
         width: 250px;
       }
 
+      .date-range-picker {
+        display: block;
+        
+      }
+      .date-picker-input {
+        margin-bottom: 10px;
+      }
+      .date-picker-check-in{
+        width: 250px;
+      }
+      .date-picker-check-out{
+        width: 250px;
+      }
+
     }
 
 
@@ -402,11 +416,8 @@
   font-size: xx-large;
  }
 
-
  .error-login{
   font-size: 14px;
   margin-left: 10px;
  }
-
-
 
