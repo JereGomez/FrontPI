@@ -26,7 +26,7 @@ export const getProductsById = async (id) => {
 
 export const createProduct = async (product) => {
   try {
-    const response = await interceptor.post('/admin', product, {
+    const response = await interceptor.post('/admin/', product, {
       withCredentials:true
     });
     return response.data;
