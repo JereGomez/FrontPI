@@ -21,7 +21,7 @@ export const getFavoritsbyid = async (id) => {
         const response = await interceptor.get(`/${id}`)
         return response.data;
       } catch (error) {
-        console.error('Ocurrió un error al traer los favoritos:', error);
+        console.error('Ocurrió un error al traer el favorito especifico:', error);
         throw error;
       }
 }

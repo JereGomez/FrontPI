@@ -5,10 +5,11 @@ import Card from '../components/Card';
 
 const Favs = () => {
 
-  const [favorites, setfavorite] = useState([]);
+  const [favorites, setfavorite] = useState(false);
+  
 useEffect(()=>{
 
-  const fetchFavorit = async () =>{
+  const fetchFavorites = async () =>{
   try {
   const data = await getAllFavorits()
  setfavorite(data)
@@ -17,7 +18,7 @@ useEffect(()=>{
   }
   }
 
-    fetchFavorit()
+    fetchFavorites()
 },[])
 
 
@@ -29,7 +30,7 @@ useEffect(()=>{
       <div className='favs-container'>
         <h1>Favoritos</h1>
       <div className='favs-grid'>
-      {favorites.lenght > 0 ? (favorites.map(item=><Card key={item.id}item={item}></Card>)):(
+      {favorites.lenght > 0 ? (favorites.map(item => <Card key={item.id}item={item}/>)):(
         <p>No existen favoritos aun</p>
       )
       
