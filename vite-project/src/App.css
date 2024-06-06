@@ -421,3 +421,15 @@
   margin-left: 10px;
  }
 
+
+
+ .bi-heart-fill{
+  color: red;
+ border-radius: 30px ;
+ border: 2px solid gray;
+ margin-left: 20px;
+ width: 30px;
+ box-shadow: #f8f9fa;
+ 
+ 
+ }

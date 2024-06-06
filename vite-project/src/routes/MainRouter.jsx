@@ -6,6 +6,7 @@ import Detail from '../views/Detail';
 import CreateAcount from '../views/CreateAcount';
 import Login from '../views/Login';
 import ProtectedRoute from '../components/ProtectedRoute';
+import Favs from '../views/Favs';
 
 const MainRouter = () => {
   return (
@@ -22,6 +23,13 @@ const MainRouter = () => {
       <Route path="/detalles/:id" element={<Detail />} />
       <Route path="/crearcuenta" element={<CreateAcount />} />
       <Route path="/login" element={<Login />} />
+      <Route 
+        path="/favoritos" 
+        element={ 
+        <ProtectedRoute>
+          <Favs/>
+        </ProtectedRoute>
+        } />
     </Routes>
   );
 };

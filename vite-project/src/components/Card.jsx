@@ -19,8 +19,11 @@ const Card = ({ item }) => {
 
   return (
     <div className="card border-0">
+      <a><button class="bi bi-heart-fill"></button></a>
       <div className="card-body">
+      
         <a href={`/detalles/${item.id}`}>
+        
           <img src={primeraImagenURL} className="card-img-top rounded" alt={nombre} />
         </a>
         <h2 className="card-title fs-5 mt-2">{nombre}</h2>
