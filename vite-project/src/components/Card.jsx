@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { createFavorito, deleteFavorito, getAllFavorits, getFavoritsbyid } from '../interceptors/favorito.interceptor';
 
 //estrellas num random
 const getRandomRating = (min, max) => {
@@ -10,16 +11,63 @@ const getRandomReviewCount = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const Card = ({ item }) => {
-  const { nombre, precioNoche, imagenes } = item;
+const Card = ({ item}) => {
+  const {  nombre, precioNoche, imagenes } = item
   const primeraImagenURL = imagenes.length > 0 ? imagenes[0].rutaDeArchivo : 'default-image-url'; // URL por defecto si no hay imágenes
 
   const rating = getRandomRating(3.5, 5.0);
   const reviewCount = getRandomReviewCount(80, 200);
 
+
+
+  const [favorites, setfavorites] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
+  
+
+
+  
+
+
+
+
+  const handleCreateFavorite = async () => {
+      try {
+        const favoritesList = await getAllFavorits();
+        const existingFavorite = favoritesList.find(fav => fav.nombre === nombre);
+
+
+        if(isFavorite){
+          await deleteFavorito(existingFavorite.id)
+        } else {const newFavorite = {
+          id : item.id,
+          nombre : nombre,
+          precioNoche : precioNoche,
+          imagenes : imagenes,
+          
+          };
+           
+
+       
+            await createFavorito(newFavorite);
+          }
+              const favoriteslist = getAllFavorits()
+              setfavorites(favoriteslist);
+              setIsFavorite(!isFavorite)
+          
+      } catch (error) {
+          console.error('Error al agregar un favorito', error);
+      }
+  };
+
+ 
+
+
+
   return (
     <div className="card border-0">
-      <a><button class="bi bi-heart-fill"></button></a>
+      <button className=  'botonfavoritos' onClick={handleCreateFavorite} >
+      {isFavorite ? '💔' : '❤️'}
+      </button>
       <div className="card-body">
       
         <a href={`/detalles/${item.id}`}>

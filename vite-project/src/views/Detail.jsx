@@ -70,7 +70,7 @@ const Detail = () => {
               <div className='d-flex flex-column'>
                 <h2 className='d-none d-lg-flex'>{product?.nombre}</h2>
                 <p>{product?.descripcion}</p>
-                <p className="text-green"><i class="bi bi-geo-alt-fill"></i> {product?.ubicacion.ciudad}</p>
+              {/* <p className="text-green"><i class="bi bi-geo-alt-fill"></i> {product?.ubicacion.ciudad}</p> */}
                 <p className="text-green"><i class="bi bi-people-fill"></i> {product?.capacidad} personas</p>
                 <p>${product?.precioNoche} <span className="text-green text-decoration-line-through">USD</span></p>
                 <div>

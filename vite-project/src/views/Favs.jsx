@@ -5,7 +5,7 @@ import Card from '../components/Card';
 
 const Favs = () => {
 
-  const [favorites, setfavorite] = useState(false);
+  const [favorites, setfavorite] = useState([]);
   
 useEffect(()=>{
 
@@ -13,6 +13,7 @@ useEffect(()=>{
   try {
   const data = await getAllFavorits()
  setfavorite(data)
+ 
   } catch (error) {
    console.error ("Se presento un error al cargar los favoritos", error)
   }
@@ -30,7 +31,7 @@ useEffect(()=>{
       <div className='favs-container'>
         <h1>Favoritos</h1>
       <div className='favs-grid'>
-      {favorites.lenght > 0 ? (favorites.map(item => <Card key={item.id}item={item}/>)):(
+      {favorites.lenght > 0 ? (favorites.map(item => <Card key={item.id}item={item} />)):(
         <p>No existen favoritos aun</p>
       )
       

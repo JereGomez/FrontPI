@@ -423,12 +423,12 @@
 
 
 
- .bi-heart-fill{
+ .botonfavoritos{
   color: red;
  border-radius: 30px ;
  border: 2px solid gray;
- margin-left: 20px;
- width: 30px;
+ margin-left: 12px;
+ width: 40px;
  box-shadow: #f8f9fa;
  
  
