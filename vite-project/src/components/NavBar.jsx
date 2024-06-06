@@ -29,7 +29,7 @@ function CustomNavbar() {
         <div className="container">
           <div className="d-flex align-items-center">
             <a className="navbar-brand text-white fw-semibold d-flex align-items-center" href="/">
-              <img src={LogoImage} alt="Logo" style={{ width: '80px'}} /> 
+              <img src={LogoImage} alt="Logo" style={{ width: '80px',}} /> 
               <span id='nav-title' className="nav-link text-custom-orange">GOTravel</span> 
             </a>
           </div>

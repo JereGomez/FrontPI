@@ -6,24 +6,52 @@ import Detail from '../views/Detail';
 import CreateAcount from '../views/CreateAcount';
 import Login from '../views/Login';
 import ProtectedRoute from '../components/ProtectedRoute';
+import { Navigate } from 'react-router-dom';
+
 
 const MainRouter = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route 
-        path="/admin" 
-        element={
-          <ProtectedRoute>
-            <AdminPage />
-          </ProtectedRoute>
-        } 
-      />
-      <Route path="/detalles/:id" element={<Detail />} />
-      <Route path="/crearcuenta" element={<CreateAcount />} />
-      <Route path="/login" element={<Login />} />
-    </Routes>
-  );
-};
+
+  const isLoggedIn = () => {
+    return localStorage.getItem('user') !== null;
+  };
+  
+  const RedirectIfLoggedIn = ({ children }) => {
+    if (isLoggedIn()) {
+      return <Navigate to="/" />;
+    }
+    return children;
+  };
+
+    return (
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route 
+          path="/admin" 
+          element={
+            <ProtectedRoute>
+              <AdminPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route path="/detalles/:id" element={<Detail />} />
+        <Route 
+          path="/crearcuenta" 
+          element={
+            <RedirectIfLoggedIn>
+              <CreateAcount />
+            </RedirectIfLoggedIn>
+          } 
+        />
+        <Route 
+          path="/login" 
+          element={
+            <RedirectIfLoggedIn>
+              <Login />
+            </RedirectIfLoggedIn>
+          } 
+        />
+      </Routes>
+    );
+  };
 
 export default MainRouter;

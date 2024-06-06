@@ -63,6 +63,7 @@ const CreateAcount = () => {
         await registerUser(usuario);
         setshow(true);
         setErrors({});
+        window.location.href("/login")
       } catch (error) {
         setErrors({form: "Ocurrió un error al crear el usuario." });
         console.log("Ocurrió un error al crear el usuario", error);
