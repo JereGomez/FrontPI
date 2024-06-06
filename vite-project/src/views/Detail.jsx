@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import CustomNavbar from '../components/NavBar';
 import { getProductsById } from '../interceptors/product.interceptor';
 
-
 const Detail = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -16,7 +15,7 @@ const Detail = () => {
     const fetchProduct = async () => {
       try {
         const data = await getProductsById(params.id);
-        console.log(data)
+        console.log(data);
         setProduct(data);
       } catch (error) {
         console.error(error);
@@ -39,7 +38,7 @@ const Detail = () => {
 
   return (
     <> 
-    <CustomNavbar />
+      <CustomNavbar />
       {!loading && !error && !product && (
         <div className="detail-container container py-3 py-lg-5">
           <div className="row justify-content-center">
@@ -71,8 +70,23 @@ const Detail = () => {
               <div className='d-flex flex-column'>
                 <h2 className='d-none d-lg-flex'>{product?.nombre}</h2>
                 <p>{product?.descripcion}</p>
-                <p>{product?.capacidad} personas</p>
-                <p>Precio por noche ${product?.precioNoche} USD</p>
+                <p className="text-green"><i class="bi bi-geo-alt-fill"></i> {product?.ubicacion.ciudad}</p>
+                <p className="text-green"><i class="bi bi-people-fill"></i> {product?.capacidad} personas</p>
+                <p>${product?.precioNoche} <span className="text-green text-decoration-line-through">USD</span></p>
+                <div>
+                  <h5>Amenities</h5>
+                  {product?.caracteristicas && product.caracteristicas.length > 0 ? (
+                    <ul>
+                      {product.caracteristicas.map((caracteristica) => (
+                          <li key={caracteristica.id}>
+                            {caracteristica.nombre} {caracteristica.icono ? caracteristica.icono : 'Icono no disponible'}
+                          </li>                      
+                      ))}
+                    </ul>
+                  ) : (
+                    <p></p>
+                  )}
+                </div>
                 <button className='btn btn-custom-orange w-75'>Reservar</button>
               </div>
             </div>

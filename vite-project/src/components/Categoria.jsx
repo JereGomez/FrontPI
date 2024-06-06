@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { createCategoria } from '../interceptors/categoria.interceptor';
+import React, { useState, useEffect } from 'react';
+import { getAllCategorias, createCategoria } from '../interceptors/categoria.interceptor';
 
 const Categoria = () => {
   const [nombre, setNombre] = useState('');
   const [descripcion, setDescripcion] = useState('');
+  const [categorias, setCategorias] = useState([]);
 
   const handleNombreChange = (e) => {
     setNombre(e.target.value);
@@ -21,11 +22,26 @@ const Categoria = () => {
       alert('Categoría creada con éxito');
       setNombre('');
       setDescripcion('');
+      fetchCategorias(); // Volver a obtener las categorías después de crear una nueva
     } catch (error) {
       console.error('Ocurrió un error al registrar una nueva categoría:', error);
       alert('Error al crear la categoría. Intenta nuevamente.');
     }
   };
+
+  const fetchCategorias = async () => {
+    try {
+      const data = await getAllCategorias();
+      setCategorias(data);
+    } catch (error) {
+      console.error('Ocurrió un error al obtener las categorías:', error);
+      alert('Error al obtener las categorías. Intenta nuevamente.');
+    }
+  };
+
+  useEffect(() => {
+    fetchCategorias();
+  }, []);
 
   return (
     <div className="modal fade" id="categoriaModal" tabIndex="-1" aria-labelledby="categoriaModalLabel" aria-hidden="true">
@@ -60,6 +76,13 @@ const Categoria = () => {
               </div>
               <button type="submit" className="btn btn-custom-green">Crear</button>
             </form>
+            <hr />
+            <h5>Categorías Existentes</h5>
+            <ul>
+              {categorias.map((categoria) => (
+                <li key={categoria.id}>{categoria.nombre} - {categoria.descripcion}</li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
