@@ -22,7 +22,9 @@ useEffect(()=>{
     fetchFavorites()
 },[])
 
-
+const handleFavoriteToggle = (id) => {
+  setfavorite((prevFavorites) => prevFavorites.filter(fav => fav.id !== id));
+};
 
 
   return (
@@ -31,7 +33,9 @@ useEffect(()=>{
       <div className='favs-container'>
         <h1>Favoritos</h1>
       <div className='favs-grid'>
-      {favorites.lenght > 0 ? (favorites.map(item => <Card key={item.id}item={item} />)):(
+      {favorites.length > 0 ? (favorites.map(item =>   <div key={item.id} className="row-12 row-md-6 row-lg-3 mb-4 flex-direction-row-0">
+                  <Card item={item}  Onfavoritetoggle = {handleFavoriteToggle} />
+                </div>)):(
         <p>No existen favoritos aun</p>
       )
       

@@ -11,8 +11,8 @@ const getRandomReviewCount = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const Card = ({ item}) => {
-  const {  nombre, precioNoche, imagenes } = item
+const Card = ({ item, Onfavoritetoggle}) => {
+  const { id, nombre, precioNoche, imagenes = [] } = item
   const primeraImagenURL = imagenes.length > 0 ? imagenes[0].rutaDeArchivo : 'default-image-url'; // URL por defecto si no hay imágenes
 
   const rating = getRandomRating(3.5, 5.0);
@@ -20,8 +20,8 @@ const Card = ({ item}) => {
 
 
 
-  const [favorites, setfavorites] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
+
+  const [isFavorite, setIsFavorite] = useState(true);
   
 
 
@@ -36,7 +36,7 @@ const Card = ({ item}) => {
         const existingFavorite = favoritesList.find(fav => fav.nombre === nombre);
 
 
-        if(isFavorite){
+        if(isFavorite && existingFavorite){
           await deleteFavorito(existingFavorite.id)
         } else {const newFavorite = {
           id : item.id,
@@ -44,15 +44,15 @@ const Card = ({ item}) => {
           precioNoche : precioNoche,
           imagenes : imagenes,
           
-          };
+          }; 
            
 
        
             await createFavorito(newFavorite);
           }
-              const favoriteslist = getAllFavorits()
-              setfavorites(favoriteslist);
+              
               setIsFavorite(!isFavorite)
+              Onfavoritetoggle(item.id);
           
       } catch (error) {
           console.error('Error al agregar un favorito', error);
@@ -66,7 +66,7 @@ const Card = ({ item}) => {
   return (
     <div className="card border-0">
       <button className=  'botonfavoritos' onClick={handleCreateFavorite} >
-      {isFavorite ? '💔' : '❤️'}
+      {isFavorite ?  '❤️' : '💔'}
       </button>
       <div className="card-body">
       
