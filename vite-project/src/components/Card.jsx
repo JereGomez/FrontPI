@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { createFavorito, deleteFavorito, getAllFavorits, getFavoritsbyid } from '../interceptors/favorito.interceptor';
 
 //estrellas num random
 const getRandomRating = (min, max) => {
@@ -10,17 +11,70 @@ const getRandomReviewCount = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const Card = ({ item }) => {
-  const { nombre, precioNoche, imagenes } = item;
+const Card = ({ item, Onfavoritetoggle}) => {
+  const { id, nombre, precioNoche, imagenes=[] } = item
   const primeraImagenURL = imagenes.length > 0 ? imagenes[0].rutaDeArchivo : 'default-image-url'; // URL por defecto si no hay imágenes
 
   const rating = getRandomRating(3.5, 5.0);
   const reviewCount = getRandomReviewCount(80, 200);
 
+console.log(imagenes);
+
+
+  const [isFavorite, setIsFavorite] = useState(true);
+  
+
+
+  
+
+
+
+
+  const handleCreateFavorite = async () => {
+      try {
+        const favoritesList = await getAllFavorits();
+        const existingFavorite = favoritesList.find(fav => fav.id === id);
+
+
+        if(isFavorite && existingFavorite){
+          await deleteFavorito(id)
+        } else {const newFavorite = {
+          id : id,
+          nombre : nombre,
+          precioNoche : precioNoche,
+          imagenes : imagenes
+          
+          }; 
+           
+
+       
+            await createFavorito(newFavorite);
+            alert("tu producto se ha agregado a favoritos")
+          }
+              
+              setIsFavorite(!isFavorite)
+              Onfavoritetoggle(id);
+              alert("tu producto se ha eliminado de favoritos")
+              
+          
+      } catch (error) {
+          console.error('Error al agregar un favorito', error);
+      }
+  };
+
+ 
+
+
+
   return (
     <div className="card border-0">
+      <button className= {`botonfavoritos ${isFavorite ? "bi-heart" : "bi-heart-fill"}`} onClick={handleCreateFavorite} >
+      
+      </button>
       <div className="card-body">
+      
         <a href={`/detalles/${item.id}`}>
+        
           <img src={primeraImagenURL} className="card-img-top rounded" alt={nombre} />
         </a>
         <h2 className="card-title fs-5 mt-2">{nombre}</h2>

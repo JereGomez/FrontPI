@@ -51,9 +51,14 @@ function CustomNavbar() {
             <ul className="navbar-nav ms-auto">
               {isLoggedIn ? (
                 <>
+                  
                   <li className="nav-item">
+                <a className="nav-link text-white" href="/favoritos">Favoritos</a>
+              </li>
+              <li className="nav-item">
                     <button className="nav-link btn btn-custom-orange rounded me-2" onClick={handleLogout}>Cerrar sesión</button>
                   </li>
+              
                 </>
               ) : (
                 <>

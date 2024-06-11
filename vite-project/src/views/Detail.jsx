@@ -16,6 +16,7 @@ const Detail = () => {
       try {
         const data = await getProductsById(params.id);
         console.log(data);
+        console.log(data);
         setProduct(data);
       } catch (error) {
         console.error(error);
@@ -38,6 +39,7 @@ const Detail = () => {
 
   return (
     <> 
+      <CustomNavbar />
       <CustomNavbar />
       {!loading && !error && !product && (
         <div className="detail-container container py-3 py-lg-5">
