@@ -12,13 +12,13 @@ const getRandomReviewCount = (min, max) => {
 }
 
 const Card = ({ item, Onfavoritetoggle}) => {
-  const { id, nombre, precioNoche, imagenes = [] } = item
+  const { id, nombre, precioNoche, imagenes=[] } = item
   const primeraImagenURL = imagenes.length > 0 ? imagenes[0].rutaDeArchivo : 'default-image-url'; // URL por defecto si no hay imágenes
 
   const rating = getRandomRating(3.5, 5.0);
   const reviewCount = getRandomReviewCount(80, 200);
 
-
+console.log(imagenes);
 
 
   const [isFavorite, setIsFavorite] = useState(true);
@@ -33,26 +33,29 @@ const Card = ({ item, Onfavoritetoggle}) => {
   const handleCreateFavorite = async () => {
       try {
         const favoritesList = await getAllFavorits();
-        const existingFavorite = favoritesList.find(fav => fav.nombre === nombre);
+        const existingFavorite = favoritesList.find(fav => fav.id === id);
 
 
         if(isFavorite && existingFavorite){
-          await deleteFavorito(existingFavorite.id)
+          await deleteFavorito(id)
         } else {const newFavorite = {
-          id : item.id,
+          id : id,
           nombre : nombre,
           precioNoche : precioNoche,
-          imagenes : imagenes,
+          imagenes : imagenes
           
           }; 
            
 
        
             await createFavorito(newFavorite);
+            alert("tu producto se ha agregado a favoritos")
           }
               
               setIsFavorite(!isFavorite)
-              Onfavoritetoggle(item.id);
+              Onfavoritetoggle(id);
+              alert("tu producto se ha eliminado de favoritos")
+              
           
       } catch (error) {
           console.error('Error al agregar un favorito', error);
@@ -65,8 +68,8 @@ const Card = ({ item, Onfavoritetoggle}) => {
 
   return (
     <div className="card border-0">
-      <button className=  'botonfavoritos' onClick={handleCreateFavorite} >
-      {isFavorite ?  '❤️' : '💔'}
+      <button className= {`botonfavoritos ${isFavorite ? "bi-heart" : "bi-heart-fill"}`} onClick={handleCreateFavorite} >
+      
       </button>
       <div className="card-body">
       

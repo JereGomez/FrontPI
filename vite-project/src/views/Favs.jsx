@@ -27,6 +27,8 @@ const handleFavoriteToggle = (id) => {
 };
 
 
+console.log({favorites});
+
   return (
     <div>
       <CustomNavbar/>
