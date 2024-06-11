@@ -40,7 +40,6 @@ const Detail = () => {
   return (
     <> 
       <CustomNavbar />
-      <CustomNavbar />
       {!loading && !error && !product && (
         <div className="detail-container container py-3 py-lg-5">
           <div className="row justify-content-center">
