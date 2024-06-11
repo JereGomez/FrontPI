@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllProducts, createProduct, editProduct, deleteProduct } from '../interceptors/product.interceptor';
+import { getAllProducts, createProduct, editProduct, deleteProduct, getProductsById } from '../interceptors/product.interceptor'; 
 import Caracteristica from './Caracteristica';
 import Categoria from './Categoria'; 
 import { getAllCategorias } from '../interceptors/categoria.interceptor';
@@ -13,10 +13,16 @@ const AdminTable = () => {
     const [descripcion, setDescripcion] = useState('');
     const [capacidad, setCapacidad] = useState(0);
     const [precioNoche, setPrecioNoche] = useState(0.0);
+    const [disponibilidadDesde, setDisponibilidadDesde] = useState('');
+    const [disponibilidadHasta, setDisponibilidadHasta] = useState('');
     const [categorias, setCategorias] = useState([]);
     const [selectedCategoryId, setSelectedCategoryId] = useState('');
     const [caracteristicas, setCaracteristicas] = useState([]);
     const [selectedCaracteristica, setSelectedCaracteristica] = useState('');
+    const [pais, setPais] = useState('');
+    const [ciudad, setCiudad] = useState('');
+    const [codigoPostal, setCodigoPostal] = useState('');
+    const [direccionExacta, setDireccionExacta] = useState('');
     const [imagenes, setImagenes] = useState([{ id: null, nombre: '', rutaDeArchivo: '' }]);
 
     const loadCategoriesAndCharacteristics = async () => {
@@ -27,7 +33,7 @@ const AdminTable = () => {
             const caracteristicasList = await getAllCaracteristicas();
             setCaracteristicas(caracteristicasList);
         } catch (error) {
-            console.error("Ocurrió un error inesperado al traer las categorías y características:", error);
+            console.error("Ocurrió un error inesperado al traer las categorías o características:", error);
             setCategorias([]);
             setCaracteristicas([]);
         }
@@ -44,8 +50,14 @@ const AdminTable = () => {
         setDescripcion('');
         setCapacidad(0);
         setPrecioNoche(0.0);
+        setDisponibilidadDesde('');
+        setDisponibilidadHasta('');
         setSelectedCategoryId('');
         setSelectedCaracteristica('');
+        setPais('');
+        setCiudad('');
+        setCodigoPostal('');
+        setDireccionExacta('');
         setImagenes([{ id: null, nombre: '', rutaDeArchivo: '' }]);
     };
 
@@ -73,13 +85,21 @@ const AdminTable = () => {
                 descripcion,
                 capacidad,
                 precioNoche,
-                categorias: [{ id: selectedCategoryId }],
-                caracteristicas: [{ id: selectedCaracteristica }],
+                disponibilidad_Desde: disponibilidadDesde,
+                disponibilidad_Hasta: disponibilidadHasta,
+                ubicacion: {
+                    pais,
+                    ciudad,
+                    codigoPostal,
+                    direccionExacta
+                },
                 imagenes: imagenes.map(imagen => ({
                     id: imagen.id,
                     nombre: imagen.nombre,
                     rutaDeArchivo: imagen.rutaDeArchivo
-                }))
+                })),
+                categorias: [{ id: selectedCategoryId }],
+                caracteristicas: [{ id: selectedCaracteristica }]
             };
             await createProduct(newProduct);
             const productList = await getAllProducts();
@@ -92,21 +112,38 @@ const AdminTable = () => {
 
     const handleEditProduct = async (productId) => {
         try {
+            // Obtener el producto actual
+            const existingProduct = await getProductsById(productId);
+    
+            // Crear un objeto base para el producto actualizado
             const updatedProduct = {
                 id: productId,
                 nombre,
                 descripcion,
                 capacidad,
                 precioNoche,
-                categorias: [{ id: selectedCategoryId }],
-                caracteristicas: [{ id: selectedCaracteristica }],
+                disponibilidad_Desde: disponibilidadDesde,
+                disponibilidad_Hasta: disponibilidadHasta,
+                ubicacion: {
+                    id: existingProduct.ubicacion?.id,
+                    pais: existingProduct.ubicacion?.pais,
+                    ciudad: existingProduct.ubicacion?.ciudad,
+                    codigoPostal: existingProduct.ubicacion?.codigoPostal,
+                    direccionExacta: existingProduct.ubicacion?.direccionExacta
+                },
                 imagenes: imagenes.map(imagen => ({
                     id: imagen.id,
                     nombre: imagen.nombre,
                     rutaDeArchivo: imagen.rutaDeArchivo
-                }))
+                })),
+                categorias: [{ id: selectedCategoryId }],
+                caracteristicas: [{ id: selectedCaracteristica }]
             };
+    
+            // Llamar a la API para editar el producto
             await editProduct(productId, updatedProduct);
+    
+            // Actualizar la lista de productos y cerrar el modal
             const productList = await getAllProducts();
             setProducts(productList);
             handleCloseModal();
@@ -114,6 +151,8 @@ const AdminTable = () => {
             console.error("Ocurrió un error al editar el producto:", error);
         }
     };
+    
+    
     
 
     const handleDeleteProduct = async (productId) => {
@@ -135,6 +174,7 @@ const AdminTable = () => {
         const fetchProducts = async () => {
             try {
                 const productList = await getAllProducts();
+                console.log(productList)
                 setProducts(productList);
             } catch (error) {
                 console.error("Ocurrió un error inesperado al traer los productos:", error);
@@ -143,29 +183,8 @@ const AdminTable = () => {
         };
         fetchProducts();
 
-        const fetchCategorias = async () => {
-            try {
-                const categoriasList = await getAllCategorias();
-                setCategorias(categoriasList);
-            } catch (error) {
-                console.error("Ocurrió un error inesperado al traer las categorías:", error);
-                setCategorias([]);
-            }
-        };
-        fetchCategorias();
-
-        const fetchCaracteristicas = async () => {
-            try {
-                const caracteristicasList = await getAllCaracteristicas();
-                setCaracteristicas(caracteristicasList);
-            } catch (error) {
-                console.error("Ocurrió un error inesperado al traer las características:", error);
-                setCaracteristicas([]);
-            }
-        };
-        fetchCaracteristicas();
+        loadCategoriesAndCharacteristics();
     }, []);
-    
 
     const handleImageChange = (index, field, value) => {
         const updatedImages = [...imagenes];
@@ -220,93 +239,123 @@ const AdminTable = () => {
                                         setDescripcion(product.descripcion);
                                         setCapacidad(product.capacidad);
                                         setPrecioNoche(product.precioNoche);
-                                        setCategorias(product.categorias);
-                                        setImagenes(product.imagenes.map(imagen => ({
-                                            id: imagen.id,
-                                            nombre: imagen.nombre,
-                                            rutaDeArchivo: imagen.rutaDeArchivo
-                                        })));
-                                        handleShowModal();
-                                    }}><i className="bi bi-pen"></i></button>
+                                        setDisponibilidadDesde(product.disponibilidad_Desde);
+                                        setDisponibilidadHasta(product.disponibilidad_Hasta);
+                                        setSelectedCategoryId(product.categorias[0]?.id || '');
+                                        setSelectedCaracteristica(product.caracteristicas[0]?.id || '');
+                                        setPais(product.ubicacion?.pais || '');
+                                        setCiudad(product.ubicacion?.ciudad || '');
+                                        setCodigoPostal(product.ubicacion?.codigoPostal || '');
+                                        setDireccionExacta(product.ubicacion?.direccionExacta || '');
+                                        setImagenes(product.imagenes.map(img => ({ id: img.id, nombre: img.nombre, rutaDeArchivo: img.rutaDeArchivo })));
+                                        setShowModal(true);
+                                    }}>
+                                        <i className="bi bi-pencil"></i>
+                                    </button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             )}
-    
             {showModal && (
-                <div className="modal fade show" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
-                    <div className="modal-dialog" role="document">
+                <div className="modal show" tabIndex="-1" style={{ display: "block" }}>
+                    <div className="modal-dialog modal-lg">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">{editingProductId ? 'Editar Producto' : 'Agregar Producto'}</h5>
+                                <h5 className="modal-title">{editingProductId ? 'Editar producto' : 'Agregar producto'}</h5>
+                                <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseModal}></button>
                             </div>
                             <div className="modal-body">
                                 <form>
-                                    <div className="form-group">
-                                        <label htmlFor="nombre">Nombre</label>
-                                        <input type="text" className="form-control" id="nombre" placeholder="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                                    <div className="mb-3">
+                                        <label htmlFor="nombre" className="form-label">Nombre</label>
+                                        <input type="text" className="form-control" id="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
                                     </div>
-                                    <div className="form-group">
-                                        <label htmlFor="descripcion">Descripción</label>
-                                        <textarea className="form-control" id="descripcion" placeholder='descripción' value={descripcion} onChange={(e) => setDescripcion(e.target.value)}></textarea>
+                                    <div className="mb-3">
+                                        <label htmlFor="descripcion" className="form-label">Descripción</label>
+                                        <textarea className="form-control" id="descripcion" value={descripcion} onChange={(e) => setDescripcion(e.target.value)}></textarea>
                                     </div>
-                                    <div className="form-group">
-                                        <label htmlFor="capacidad">Capacidad</label>
+                                    <div className="mb-3">
+                                        <label htmlFor="capacidad" className="form-label">Capacidad</label>
                                         <input type="number" className="form-control" id="capacidad" value={capacidad} onChange={(e) => setCapacidad(parseInt(e.target.value))} />
                                     </div>
-                                    <div className="form-group">
-                                        <label htmlFor="precioNoche">Precio por Noche</label>
-                                        <input type="number" className="form-control" id="precioNoche" value={precioNoche} onChange={(e) => setPrecioNoche(parseFloat(e.target.value))} />
+                                    <div className="mb-3">
+                                        <label htmlFor="precioNoche" className="form-label">Precio por Noche</label>
+                                        <input type="number" step="0.01" className="form-control" id="precioNoche" value={precioNoche} onChange={(e) => setPrecioNoche(parseFloat(e.target.value))} />
                                     </div>
-                                    <div className="form-group">
-                                        <label htmlFor="categorias">Categorías</label>
-                                        <select className="form-select" id="categorias" value={selectedCategoryId} onChange={(e) => setSelectedCategoryId(e.target.value)}>
-                                            <option value="">Selecciona una categoría...</option>
-                                            {categorias.map((categoria) => (
+                                    <div className="mb-3">
+                                        <label htmlFor="disponibilidadDesde" className="form-label">Disponibilidad Desde</label>
+                                        <input type="date" className="form-control" id="disponibilidadDesde" value={disponibilidadDesde} onChange={(e) => setDisponibilidadDesde(e.target.value)} />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="disponibilidadHasta" className="form-label">Disponibilidad Hasta</label>
+                                        <input type="date" className="form-control" id="disponibilidadHasta" value={disponibilidadHasta} onChange={(e) => setDisponibilidadHasta(e.target.value)} />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="categoria" className="form-label">Categoría</label>
+                                        <select className="form-select" id="categoria" value={selectedCategoryId} onChange={(e) => setSelectedCategoryId(e.target.value)}>
+                                            <option value="">Selecciona una categoría</option>
+                                            {categorias.map(categoria => (
                                                 <option key={categoria.id} value={categoria.id}>{categoria.nombre}</option>
                                             ))}
                                         </select>
                                     </div>
-                                    <div className="form-group">
-                                        <label htmlFor="caracteristica">Característica</label>
+                                    <div className="mb-3">
+                                        <label htmlFor="caracteristica" className="form-label">Características</label>
                                         <select className="form-select" id="caracteristica" value={selectedCaracteristica} onChange={(e) => setSelectedCaracteristica(e.target.value)}>
-                                            <option value="">Selecciona una característica...</option>
-                                            {caracteristicas.map((caracteristica) => (
+                                            <option value="">Selecciona una característica</option>
+                                            {caracteristicas.map(caracteristica => (
                                                 <option key={caracteristica.id} value={caracteristica.id}>{caracteristica.nombre}</option>
                                             ))}
                                         </select>
                                     </div>
-                                    <div className="form-group">
-                                        <label>Imágenes</label>
+                                    <div className="mb-3">
+                                        <label htmlFor="pais" className="form-label">País</label>
+                                        <input type="text" className="form-control" id="pais" value={pais} onChange={(e) => setPais(e.target.value)} />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="ciudad" className="form-label">Ciudad</label>
+                                        <input type="text" className="form-control" id="ciudad" value={ciudad} onChange={(e) => setCiudad(e.target.value)} />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="codigoPostal" className="form-label">Código Postal</label>
+                                        <input type="text" className="form-control" id="codigoPostal" value={codigoPostal} onChange={(e) => setCodigoPostal(e.target.value)} />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="direccionExacta" className="form-label">Dirección Exacta</label>
+                                        <input type="text" className="form-control" id="direccionExacta" value={direccionExacta} onChange={(e) => setDireccionExacta(e.target.value)} />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Imágenes</label>
                                         {imagenes.map((imagen, index) => (
-                                            <div key={index} className="d-flex mb-2">
+                                            <div key={index} className="d-flex align-items-center mb-2">
                                                 <input
                                                     type="text"
                                                     className="form-control me-2"
-                                                    placeholder="Nombre de imagen"
+                                                    placeholder="Nombre de la imagen"
                                                     value={imagen.nombre}
                                                     onChange={(e) => handleImageChange(index, 'nombre', e.target.value)}
                                                 />
                                                 <input
                                                     type="text"
                                                     className="form-control me-2"
-                                                    placeholder="Ruta de imagen"
+                                                    placeholder="Ruta de archivo"
                                                     value={imagen.rutaDeArchivo}
                                                     onChange={(e) => handleImageChange(index, 'rutaDeArchivo', e.target.value)}
                                                 />
-                                                {imagen.id && <input type="hidden" value={imagen.id} />}
-                                                <button type="button" className="btn btn-danger" onClick={() => handleRemoveImage(index)}>-</button>
+                                                <button type="button" className="btn btn-danger" onClick={() => handleRemoveImage(index)}>
+                                                    <i className="bi bi-trash3"></i>
+                                                </button>
                                             </div>
                                         ))}
-                                        <button type="button" className="btn btn-custom-green" onClick={handleAddImage}>+ Agregar Imagen</button>
+                                        <button type="button" className="btn btn-custom-green" onClick={handleAddImage}>+ Agregar imagen</button>
                                     </div>
                                 </form>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Cancelar</button>
-                                <button type="button" className="btn btn-custom-green" onClick={handleSaveProduct}>Guardar</button>
+                                <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Cerrar</button>
+                                <button type="button" className="btn btn-custom-green" onClick={handleSaveProduct}>{editingProductId ? 'Guardar cambios' : 'Agregar producto'}</button>
                             </div>
                         </div>
                     </div>
@@ -319,7 +368,7 @@ const AdminTable = () => {
                 data-bs-toggle="modal"
                 data-bs-target="#caracteristicaModal"
             >
-                Crear Nueva Característica
+                Administrar características
             </button>
 
             <button
@@ -328,8 +377,9 @@ const AdminTable = () => {
                 data-bs-toggle="modal"
                 data-bs-target="#categoriaModal"
             >
-                Crear Nueva Categoría
+                Administrar categorías
             </button>
+
 
             <Caracteristica />
 
@@ -339,4 +389,3 @@ const AdminTable = () => {
 };
 
 export default AdminTable;
-

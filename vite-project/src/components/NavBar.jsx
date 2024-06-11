@@ -1,11 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LogoImage from '/Proyecto Integrador Equipo 8.png';
 import BgNavBar from '/pexels-tomfisk-1518723.jpg';
 import { logoutUser } from '../interceptors/auth.interceptor';
-import DateRangePicker from './DateRangePicker'; // Importa el componente
+import DateRangePicker from './DateRangePicker'; 
+import { getAllProducts } from '../interceptors/product.interceptor';
 
-function CustomNavbar() {
+function CustomNavbar({ setFoundProducts }) {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('user') !== null);
+  const [locations, setLocations] = useState([]);
+  const [location, setLocation] = useState('');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const products = await getAllProducts();
+        const uniqueLocations = [...new Set(products.map(product => product.ubicacion && product.ubicacion.pais))];
+        setLocations(uniqueLocations);
+      } catch (error) {
+        console.error('Error al obtener ubicaciones:', error);
+      }
+    };
+    fetchLocations();
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -18,8 +37,24 @@ function CustomNavbar() {
     }
   };
 
+  const handleLocationChange = (event) => {
+    setLocation(event.target.value);
+  };
+
+  const handleSearch = async (event) => {
+    event.preventDefault();
+    try {
+      const products = await getAllProducts();
+      const filteredProducts = products.filter(product => product.ubicacion && product.ubicacion.pais === location);
+      setSearchResults(filteredProducts);
+      setFoundProducts(filteredProducts);
+    } catch (error) {
+      console.error('Error al buscar productos:', error);
+    }
+  };
+
   return (
-    <div className='pb-3' style={{ 
+    <div className='pb-3' style={{
       backgroundImage: `url(${BgNavBar})`, 
       backgroundSize: 'cover',
       backgroundPosition: 'center',
@@ -69,17 +104,15 @@ function CustomNavbar() {
           </div>
         </div>
       </nav>
-      <p className='lead-navbar text-center text-light d-none d-md-flex'>Encuentra instantáneamente las mejores ofertas en hoteles, glampings, hostales y mucho más!</p>
       <div className="container mt-3 mb-2">
-        <form className="d-flex flex-column flex-sm-row justify-content-center align-items-center">
-          <select className="form-select mb-2 mb-sm-0 me-0 me-sm-2 text-green p-2" style={{ maxWidth: '250px' }}>
+        <form className="d-flex flex-column flex-sm-row justify-content-center align-items-center" onSubmit={handleSearch}>
+          <select className="form-select mb-2 mb-sm-0 me-0 me-sm-2 text-green p-2" style={{ maxWidth: '250px' }} value={location} onChange={handleLocationChange}>
             <option value="" disabled selected>Á donde vamos</option>
-            <option value="paris">París</option>
-            <option value="newyork">Nueva York</option>
-            <option value="tokyo">Tokio</option>
-            <option value="london">Londres</option>
+            {locations.map((location, index) => (
+              <option key={index} value={location}>{location}</option>
+            ))}
           </select>
-          <DateRangePicker /> 
+          <DateRangePicker setStartDate={setStartDate} setEndDate={setEndDate} /> 
           <button type="submit" className="boton-filtros-nav btn btn-custom-orange p-md-2 ms-2 mt-2 mt-md-0">Buscar &rarr;</button>
         </form>
       </div>

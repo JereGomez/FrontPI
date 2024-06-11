@@ -6,6 +6,7 @@ import { getAllProducts } from "../interceptors/product.interceptor";
 
 const HomePage = () => {
   const [list, setList] = useState([]);
+  const [foundProducts, setFoundProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(4);
@@ -28,30 +29,31 @@ const HomePage = () => {
     fetchProducts();
   }, []);
 
-
   const filterByCategory = (category) => {
     setSelectedCategory(category);
     setCurrentPage(1);
+
+    // Aquí deberías aplicar el filtro y actualizar el estado `foundProducts`
+    const filteredList = list.filter(item => category === "Todos" ? true : item.categorias.some(categoria => categoria.nombre === category));
+    setFoundProducts(filteredList);
   };
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  // Reglas para filtrado y paginado
-  const filteredList = list.filter(item => selectedCategory === "Todos" ? true : item.categorias.some(categoria => categoria.nombre === selectedCategory));
-  const totalPages = Math.ceil(filteredList.length / productsPerPage);
+  const totalPages = Math.ceil(foundProducts.length / productsPerPage);
   const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;
-  const currentProducts = filteredList.slice(startIndex, endIndex);
+  const currentProducts = foundProducts.slice(startIndex, endIndex);
 
   return (
     <>
-      <CustomNavbar />
+      <CustomNavbar setFoundProducts={setFoundProducts} />
       <div className="container">
-        <div className="px-4 mt-3">
+        <div className="px-4 mt-3 mb-3">
           <h3 className="fs-1">Qué estás buscando?</h3>
-          <p className="text-green">Explora diferentes tipos de alojamientos de tendencia en todo el mundo para escapadas inolvidables</p>
+          <div className="text-green">Explora diferentes tipos de alojamientos de tendencia en todo el mundo para escapadas inolvidables</div>
         </div>
         <div className="btn-group mb-4 ms-4" role="group" aria-label="Categorías de Alojamiento">
           {categories.map((category) => (
@@ -76,8 +78,13 @@ const HomePage = () => {
             </div>
           </div>
         ) : (
-          <div className="px-4 mt-3">
-            <h4 className="fs-3 text-center m-5">No hay productos disponibles</h4>
+          // Si no hay productos encontrados, mostrar todos los productos disponibles
+          <div className="d-lg-flex flex-lg-wrap row">
+            {list.map((producto) => (
+              <div key={producto.id} className="col-12 col-md-6 col-lg-3 mb-4 flex-shrink-0">
+                <Card item={producto} />
+              </div>
+            ))}
           </div>
         )}
         <nav aria-label="Page navigation" className="">

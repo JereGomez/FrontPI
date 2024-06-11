@@ -1,14 +1,15 @@
 import axios from "axios";
 
 const interceptor = axios.create({
-  baseURL: "http://localhost:8081/auth",
-  withCredentials: true,
+  baseURL: "http://localhost:8081/auth"
 });
 
 //login
 export const loginUser = async (user) => {
   try {
-    const response = await interceptor.post("/login", user);
+    const response = await interceptor.post("/login", user, {
+      withCredentials: true
+    });
     localStorage.setItem("user", JSON.stringify(response));
     return response;
   } catch (error) {
