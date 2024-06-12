@@ -7,6 +7,7 @@ import CreateAcount from '../views/CreateAcount';
 import Login from '../views/Login';
 import ProtectedRoute from '../components/ProtectedRoute';
 import { Navigate } from 'react-router-dom';
+import Favs from '../views/Favs';
 
 
 const MainRouter = () => {
@@ -30,6 +31,14 @@ const MainRouter = () => {
           element={
             <ProtectedRoute>
               <AdminPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/favoritos" 
+          element={
+            <ProtectedRoute>
+              <Favs />
             </ProtectedRoute>
           } 
         />

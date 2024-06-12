@@ -16,6 +16,7 @@ const HomePage = () => {
     const fetchProducts = async () => {
       try {
         const data = await getAllProducts();
+        console.log(data)
         setList(data);
         
         const uniqueCategories = Array.from(new Set(data.flatMap(producto => producto.categorias.map(categoria => categoria.nombre))));
@@ -71,7 +72,7 @@ const HomePage = () => {
           <div className="d-lg-flex flex-lg-wrap row">
             <div className="d-flex flex-nowrap overflow-auto scroll-container">
               {currentProducts.map((producto) => (
-                <div key={producto.id} className="col-12 col-md-6 col-lg-3 mb-4 flex-shrink-0">
+                <div key={producto.id} className="col-12 col-md-6 col-lg-3 mb-4 flex-shrink-0 p-2">
                   <Card item={producto} />
                 </div>
               ))}

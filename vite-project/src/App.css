@@ -181,6 +181,25 @@
       margin: auto;
     }
 
+    /*FAVS*/
+    .image-container {
+      position: relative;
+    }
+    
+    .favorite-icon {
+      position: absolute;
+      top: 0px;
+      right: 10% !important;
+      font-size: 18px; 
+      color: rgb(0, 0, 0); 
+      cursor: pointer;
+    }
+    
+    .favorite-icon:hover {
+      color: #2a8584; 
+    }
+    
+
     /*RESPONSIVE MONITOR*/
     @media (min-width: 1400px) {
       /*detalle*/

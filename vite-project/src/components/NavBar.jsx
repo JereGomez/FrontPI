@@ -89,6 +89,9 @@ function CustomNavbar({ setFoundProducts }) {
               {isLoggedIn ? (
                 <>
                   <li className="nav-item">
+                    <a className="nav-link text-white" href="/favoritos">Favoritos</a>
+                  </li>
+                  <li className="nav-item">
                     <button className="nav-link btn btn-custom-orange rounded me-2" onClick={handleLogout}>Cerrar sesión</button>
                   </li>
                 </>
@@ -106,19 +109,19 @@ function CustomNavbar({ setFoundProducts }) {
           </div>
         </div>
       </nav>
-      {!currentLocation.pathname.includes('/detalles/') && ( 
-        <div className="container mt-3 mb-2">
-          <form className="d-flex flex-column flex-sm-row justify-content-center align-items-center" onSubmit={handleSearch}>
-            <select className="form-select mb-2 mb-sm-0 me-0 me-sm-2 text-green p-2" style={{ maxWidth: '250px' }} value={location} onChange={handleLocationChange}>
-              <option value="" disabled selected>Á donde vamos</option>
-              {locations.map((location, index) => (
-                <option key={index} value={location}>{location}</option>
-              ))}
-            </select>
-            <DateRangePicker setStartDate={setStartDate} setEndDate={setEndDate} /> 
-            <button type="submit" className="boton-filtros-nav btn btn-custom-orange p-md-2 ms-2 mt-2 mt-md-0">Buscar &rarr;</button>
-          </form>
-        </div>
+      {!currentLocation.pathname.includes('/detalles/') && !currentLocation.pathname.includes('/favoritos') && (
+      <div className="container mt-3 mb-2">
+        <form className="d-flex flex-column flex-sm-row justify-content-center align-items-center" onSubmit={handleSearch}>
+          <select className="form-select mb-2 mb-sm-0 me-0 me-sm-2 text-green p-2" style={{ maxWidth: '250px' }} value={location} onChange={handleLocationChange}>
+            <option value="" disabled selected>Á donde vamos</option>
+            {locations.map((location, index) => (
+              <option key={index} value={location}>{location}</option>
+            ))}
+          </select>
+          <DateRangePicker setStartDate={setStartDate} setEndDate={setEndDate} /> 
+          <button type="submit" className="boton-filtros-nav btn btn-custom-orange p-md-2 ms-2 mt-2 mt-md-0">Buscar &rarr;</button>
+        </form>
+      </div>
       )}
     </div>
   );
