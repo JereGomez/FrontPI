@@ -9,7 +9,6 @@ import ProtectedRoute from '../components/ProtectedRoute';
 import { Navigate } from 'react-router-dom';
 import Favs from '../views/Favs';
 
-
 const MainRouter = () => {
 
   const isLoggedIn = () => {
@@ -59,6 +58,13 @@ const MainRouter = () => {
             </RedirectIfLoggedIn>
           } 
         />
+      <Route 
+        path="/favoritos" 
+        element={ 
+        <ProtectedRoute>
+          <Favs/>
+        </ProtectedRoute>
+        } />
       </Routes>
     );
   };

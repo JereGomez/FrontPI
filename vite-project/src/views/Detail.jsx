@@ -18,6 +18,7 @@ const Detail = () => {
       try {
         const data = await getProductsById(params.id);
         console.log(data);
+        console.log(data);
         setProduct(data);
       } catch (error) {
         console.error(error);

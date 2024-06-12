@@ -40,6 +40,7 @@ export const createFavorito = async (favorito) => {
   };
 
 
+
   export const deleteFavorito = async (favoritoid) => {
     try {
       await interceptor.delete(`/eliminar/${favoritoid}`, {
