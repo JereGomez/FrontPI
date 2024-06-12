@@ -129,27 +129,36 @@ const Detail = () => {
       )}
 
       {/* Sector de políticas de producto */}
-      <div className="container">
-          <h2 className='text-center mb-5 pb-3 border-bottom border-dark'>Nuestras políticas</h2>
+      <div className="container my-5">
+        <h2 className="text-center mb-5 pb-3 border-bottom border-dark">Nuestras políticas</h2>
         <div className="row justify-content-center">
-          <div className="col-lg-12">
-            <div className="row">
-              <div className="col-lg-4">
-                <h3>Cancelación</h3>
-                <p>Se requiere cancelar al menos 48 horas antes del check-in para obtener un reembolso completo.</p>
+          <div className="col-lg-4 mb-2">
+            <div className="card shadow-sm rounded">
+              <div className="card-body">
+                <h3 className="card-title">Cancelación</h3>
+                <p className="card-text">Se requiere cancelar al menos 48 horas antes del check-in para obtener reembolso.</p>
               </div>
-              <div className="col-lg-4">
-                <h3>Mascotas</h3>
-                <p>No se permiten mascotas en las instalaciones en ningun caso.</p>
+            </div>
+          </div>
+          <div className="col-lg-4 mb-2">
+            <div className="card shadow-sm rounded">
+              <div className="card-body">
+                <h3 className="card-title">Mascotas</h3>
+                <p className="card-text">No se permiten mascotas en las instalaciones en ningún caso.</p>
               </div>
-              <div className="col-lg-4">
-                <h3>Fumar</h3>
-                <p>Está prohibido fumar dentro de las habitaciones y áreas comunes.</p>
+            </div>
+          </div>
+          <div className="col-lg-4 mb-2">
+            <div className="card shadow-sm rounded">
+              <div className="card-body">
+                <h3 className="card-title">Fumar</h3>
+                <p className="card-text">Está prohibido fumar dentro de las habitaciones y áreas comunes.</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+
 
 
       {/* Popup de la galería */}
