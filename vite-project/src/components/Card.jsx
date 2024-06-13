@@ -75,7 +75,7 @@ const Card = ({ item, Onfavoritetoggle }) => {
           <img src={primeraImagenURL} className="card-img-top rounded" alt={nombre}/>
         </a>
         <i 
-          className={`favorite-icon bi ${isFavorite ? "bi-heart-fill" : "bi-heart"}`} 
+          className={`favorite-icon botonfavoritos ${isFavorite ? "bi-heart-fill" : "bi-heart"}`} 
           onClick={handleCreateFavorite}
         ></i>
       </div>

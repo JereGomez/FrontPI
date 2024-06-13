@@ -448,12 +448,18 @@
 
 
  .botonfavoritos{
-  color: red;
+  color:#e65a19;
+ 
  border-radius: 30px ;
- border: 2px solid gray;
- margin-left: 12px;
- width: 40px;
+ border : 2px solid gray;
+ margin-top: 10px;
+ margin-right: 45px;
+ width: 28px;
+ height: 28px;
  box-shadow: #f8f9fa;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
  
  
  }
