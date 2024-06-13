@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom'; 
-import LogoImage from '/Proyecto Integrador Equipo 8.png';
+import LogoImage from '/Logo03.png';
 import BgNavBar from '/pexels-tomfisk-1518723.jpg';
 import { logoutUser } from '../interceptors/auth.interceptor';
 import DateRangePicker from './DateRangePicker'; 
@@ -66,8 +66,8 @@ function CustomNavbar({ setFoundProducts }) {
         <div className="container">
           <div className="d-flex align-items-center">
             <a className="navbar-brand text-white fw-semibold d-flex align-items-center" href="/">
-              <img src={LogoImage} alt="Logo" style={{ width: '80px',}} /> 
-              <span id='nav-title' className="nav-link text-custom-orange">GOTravel</span> 
+              <img src={LogoImage} alt="Logo" style={{ width: '80px',marginRight:"10px"}} className='logoimage' /> 
+              <span id='nav-title' className="nav-link text-custom-orange"></span> 
             </a>
           </div>
           <button className="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

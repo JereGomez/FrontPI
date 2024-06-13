@@ -1,5 +1,5 @@
 import React from 'react';
-import LogoImage from '/Proyecto Integrador Equipo 8.png';
+import LogoImage from '/Logo01.png';
 
 const Footer = () => {
   return (
@@ -8,8 +8,8 @@ const Footer = () => {
         <div className="row">
           <div className="col-12 col-md-4 mb-3" >
             <div className="d-flex align-items-center"style={{marginLeft:'-20px'}}>
-            <img src={LogoImage} alt="Logo" style={{ width: '80px'}} />
-            <h5 className='text-custom-orange mt-1' style={{marginLeft:'-20px'}}>GOTravel</h5>
+            <img src={LogoImage} alt="Logo" style={{ width: '50px'}} />
+            <h5 className='text-custom-orange mt-1' style={{marginRight:'-90px'}}>GOTravel</h5>
             </div>
             <p className='text-custom-orange text-'>Nuestro trabajo es inspirar y permitir hospedajes memorables para todos.</p>
           </div>  

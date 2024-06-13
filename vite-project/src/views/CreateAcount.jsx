@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import LogoImage from "/Proyecto Integrador Equipo 8.png";
+import LogoImage from "/Logo03.png";
 import { registerUser } from "../interceptors/user.interceptor";
 import ImagenLogin from "/Globos.png";
 
@@ -85,7 +85,7 @@ const CreateAcount = () => {
               alt="Gotravel"
               className="logo-gotravel mb-2"
             />
-            GoTravel
+           
           </h1>
           <h2 className="titlecuenta">Crea tu cuenta</h2>
           <p className="titlecuenta">

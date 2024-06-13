@@ -137,6 +137,11 @@
         width: 240px;
     }
 
+    .logoimage{
+      border-radius:20px ;
+      
+    }
+
     /*DETALLE*/
     .large-image{
       width: 600px;

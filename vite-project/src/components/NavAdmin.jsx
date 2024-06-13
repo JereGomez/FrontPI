@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LogoImage from '/Proyecto Integrador Equipo 8.png';
+import LogoImage from '/Logo03.png';
 import BgNavBar from '/pexels-tomfisk-1518723.jpg';
 import { logoutUser } from '../interceptors/auth.interceptor';
 
@@ -29,8 +29,8 @@ function NavAdmin() {
           {/* Contenedor para el logo y el texto */}
           <div className="d-flex align-items-center">
             <a className="navbar-brand text-white fw-semibold d-flex align-items-center" href="/">
-              <img src={LogoImage} alt="Logo" style={{ width: '80px'}} /> 
-              <span id='nav-title' className="nav-link text-custom-orange">GOTravel</span> 
+              <img src={LogoImage} alt="Logo" style={{ width: '80px'}} className='logoimage' /> 
+              <span id='nav-title' className="nav-link text-custom-orange"></span> 
             </a>
           </div>
 

@@ -21,7 +21,12 @@ export const loginUser = async (user) => {
 //logout
 export const logoutUser = async () => {
   try {
-    const response = await interceptor.get("/logout");
+    const response = await interceptor.get("/logout",
+      {withCredentials : true
+        
+      }
+    );
+    
     localStorage.removeItem("user");
     return response;
   } catch (error) {
