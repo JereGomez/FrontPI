@@ -11,54 +11,57 @@ const getRandomReviewCount = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const Card = ({ item, Onfavoritetoggle }) => {
+const Card = ({ item, Onfavoritetoggle, showToast }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    const fetchFavorites = async () => {
-      try {
-        const favoritesList = await getAllFavorits();
-        const existingFavorite = favoritesList.find(fav => fav.id === item.id);
-        setIsFavorite(!!existingFavorite);
-      } catch (error) {
-        console.error('Error al obtener la lista de favoritos', error);
-      }
-    };
-    fetchFavorites();
-  }, [item.id]);
-
-  useEffect(() => {
-    const fetchUser = async () => {
+    const fetchUserAndFavorites = async () => {
       try {
         const userData = await getUserFromCookie();
-        setUser(userData); 
+        setUser(userData);
+
+        if (userData) {
+          const favoritesList = await getAllFavorits();
+          setFavorites(favoritesList);
+
+          const existingFavorite = favoritesList.find(
+            fav => fav.productoSalidaDto.id === item.id && fav.usuarioSalidaDto.id === userData.id
+          );
+          setIsFavorite(!!existingFavorite);
+        }
       } catch (error) {
-        console.error('Error al obtener el usuario desde la cookie', error);
+        console.error('Error al obtener el usuario y la lista de favoritos', error);
       }
     };
-    fetchUser();
-  }, []);
+    fetchUserAndFavorites();
+  }, [item.id]);
 
   const handleCreateFavorite = async () => {
     try {
       if (!user) {
-        alert("Debes iniciar sesión para agregar a favoritos.");
+        showToast("Debes iniciar sesión para agregar a favoritos.");
         return;
       }
 
       if (isFavorite) {
-        await deleteFavorito(item.id);
-        alert("Tu producto se ha eliminado de favoritos");
+        const favoriteToDelete = favorites.find(
+          fav => fav.productoSalidaDto.id === item.id && fav.usuarioSalidaDto.id === user.id
+        );
+        if (favoriteToDelete) {
+          await deleteFavorito(favoriteToDelete.id);
+          showToast("Tu producto se ha eliminado de favoritos");
+        }
       } else {
         const newFavorite = {
           nombre: item.nombre,
-          productoId: item.id,
-          usuarioId: user.id 
+          usuarioSalidaDtoId: user.id,
+          productoSalidaDtoId: item.id 
         };
 
         await createFavorito(newFavorite);
-        alert("Tu producto se ha agregado a favoritos");
+        showToast("Tu producto se ha agregado a favoritos");
       }
       setIsFavorite(!isFavorite);
       Onfavoritetoggle(item.id);
@@ -73,15 +76,19 @@ const Card = ({ item, Onfavoritetoggle }) => {
   const reviewCount = getRandomReviewCount(80, 200);
 
   return (
-    <div className="card border-0">
+    <div className="card border-0 ms-4">
       <div className="image-container">
         <a href={`/detalles/${item.id}`}>
-          <img src={primeraImagenURL} className="card-img-top rounded" alt={nombre}/>
+          <img src={primeraImagenURL} className="card-img-top rounded" alt={nombre} />
         </a>
-        <i 
-          className={`favorite-icon botonfavoritos ${isFavorite ? "bi-heart-fill" : "bi-heart"}`} 
-          onClick={handleCreateFavorite}
-        ></i>
+        {user ? (
+          <i 
+            className={`favorite-icon botonfavoritos ${isFavorite ? "bi-heart-fill" : "bi-heart"}`} 
+            onClick={handleCreateFavorite}
+          ></i>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="card-body">
         <h2 className="card-title fs-5 mt-2">{nombre}</h2>

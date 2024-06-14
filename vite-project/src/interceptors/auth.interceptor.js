@@ -6,7 +6,7 @@ const interceptor = axios.create({
   baseURL: "http://localhost:8081/auth"
 });
 
-const SECRET_KEY = new TextEncoder().encode('your_secret_key'); // La clave debe ser un Uint8Array
+const SECRET_KEY = new TextEncoder().encode('miclavenotansecreta');
 
 // login
 export const loginUser = async (user) => {

@@ -47,8 +47,10 @@ const Footer = () => {
       <div className="bg-dark mt-4">
         <div className="container">
           <div className="row">
-            <div className="col-12 text-center">
+            <div className="col-md-6">
               <p className='text-white'>&copy; 2024 GOTravel. Todos los derechos reservados</p>
+            </div>
+            <div className="col-md-6">
               <ul className="list-unstyled d-flex justify-content-center">
                 <li className="ms-3"><a className="text-white" href="#">Política de privacidad</a></li>
                 <li className="ms-3"><a className="text-white" href="#">Términos y condiciones</a></li>

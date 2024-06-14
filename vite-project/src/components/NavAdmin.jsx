@@ -28,8 +28,8 @@ function NavAdmin() {
         <div className="container">
           {/* Contenedor para el logo y el texto */}
           <div className="d-flex align-items-center">
-            <a className="navbar-brand text-white fw-semibold d-flex align-items-center" href="/">
-              <img src={LogoImage} alt="Logo" style={{ width: '80px'}} className='logoimage' /> 
+          <a className="navbar-brand text-white fw-semibold d-flex align-items-center mt-1" href="/">
+              <img src={LogoImage} alt="Logo" style={{ width: '100px',height: '33px',marginRight:"10px"}} className='logoimage' /> 
               <span id='nav-title' className="nav-link text-custom-orange"></span> 
             </a>
           </div>

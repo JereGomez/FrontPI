@@ -49,6 +49,9 @@
     }
 
    /*CARD*/
+   .card-body{
+    margin-left: -2px;
+   }
 
     .card-title {
       font-size: 24px;
@@ -136,19 +139,23 @@
         max-height: 150px;
         width: 240px;
     }
+    .logoimage{
+      border-radius:5px ;
+    }
+
     /*FOOTER*/
     .footer {
       position: fixed;
       bottom: 0;
       width: 100%;
-      background-color: #343a40; /* Color de fondo del footer */
-      color: white; /* Color de texto del footer */
-      padding-top: 20px; /* Espaciado interno en la parte superior */
-      padding-bottom: 20px; /* Espaciado interno en la parte inferior */
+      background-color: #343a40; 
+      color: white; 
+      padding-top: 20px; 
+      padding-bottom: 20px; 
     }
     
     .footer .container {
-      max-width: 1140px; /* Ancho máximo del contenido del footer */
+      max-width: 1140px;
     }
     
     .footer .container-fluid {
@@ -156,12 +163,6 @@
       padding-right: 0;
     }
     
-    
-
-    .logoimage{
-      border-radius:20px ;
-      
-    }
 
     /*DETALLE*/
     .large-image{
@@ -215,7 +216,7 @@
     .favorite-icon {
       position: absolute;
       top: 0px;
-      right: 10% !important;
+      right: -15% !important;
       font-size: 18px; 
       color: rgb(0, 0, 0); 
       cursor: pointer;
@@ -224,6 +225,17 @@
     .favorite-icon:hover {
       color: #2a8584; 
     }
+
+    .botonfavoritos{
+      margin-top: 10px;
+      margin-right: 45px;
+      width: 28px;
+      height: 28px;
+      box-shadow: #f8f9fa;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      }
     
 
     /*RESPONSIVE MONITOR*/
@@ -245,6 +257,16 @@
          height: 105px;
 
        }
+
+       /*FAVORITOS*/
+       .favorite-icon {
+        position: absolute;
+        top: 0px;
+        right: 2% !important;
+        font-size: 18px; 
+        color: rgb(0, 0, 0); 
+        cursor: pointer;
+      }
    
      }
 
@@ -311,6 +333,20 @@
       }
       .date-picker-check-out{
         width: 250px;
+      }
+
+      /*FAVORITOS*/
+      .favorite-icon {
+        position: absolute;
+        top: 0px;
+        left: 50vw !important;
+        font-size: 18px; 
+        color: rgb(0, 0, 0); 
+        cursor: pointer;
+      }
+      
+      .favorite-icon:hover {
+        color: #2a8584; 
       }
 
     }
@@ -457,7 +493,7 @@
  .text-danger{
   justify-content: center;
   align-items: center;
- font-weight: bold;
+  font-weight: bold;
   font-size: xx-large;
  }
 
@@ -466,21 +502,3 @@
   margin-left: 10px;
  }
 
-
-
- .botonfavoritos{
-  color:#e65a19;
- 
- border-radius: 30px ;
- border : 2px solid gray;
- margin-top: 10px;
- margin-right: 45px;
- width: 28px;
- height: 28px;
- box-shadow: #f8f9fa;
- align-items: center;
- justify-content: center;
- text-align: center;
- 
- 
- }

@@ -11,15 +11,18 @@ const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(4);
   const [categories, setCategories] = useState(["Todos"]);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const data = await getAllProducts();
         setList(data);
-        
+
         const uniqueCategories = Array.from(new Set(data.flatMap(producto => producto.categorias.map(categoria => categoria.nombre))));
         setCategories(["Todos", ...uniqueCategories]);
+        setFoundProducts(data);
       } catch (error) {
         console.error(error);
         setList([]);
@@ -44,6 +47,12 @@ const HomePage = () => {
   const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;
   const currentProducts = foundProducts.slice(startIndex, endIndex);
+
+  const handleShowToast = (message) => {
+    setToastMessage(message);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000); // Ocultar el toast después de 3 segundos
+  };
 
   return (
     <>
@@ -70,17 +79,16 @@ const HomePage = () => {
             <div className="d-flex flex-nowrap overflow-auto scroll-container">
               {currentProducts.map((producto) => (
                 <div key={producto.id} className="col-12 col-md-6 col-lg-3 mb-4 flex-shrink-0 p-2">
-                  <Card item={producto} />
+                  <Card item={producto} Onfavoritetoggle={() => {}} showToast={handleShowToast} />
                 </div>
               ))}
             </div>
           </div>
         ) : (
-          // Si no hay productos encontrados, mostrar todos los productos disponibles
           <div className="d-lg-flex flex-lg-wrap row">
             {list.map((producto) => (
               <div key={producto.id} className="col-12 col-md-6 col-lg-3 mb-4 flex-shrink-0">
-                <Card item={producto} />
+                <Card item={producto} Onfavoritetoggle={() => {}} showToast={handleShowToast} />
               </div>
             ))}
           </div>
@@ -94,6 +102,17 @@ const HomePage = () => {
             ))}
           </ul>
         </nav>
+      </div>
+      
+      <div aria-live="polite" aria-atomic="true" className="position-relative">
+        <div className="toast-container position-fixed top-0 end-0 p-3">
+          <div className={`toast ${showToast ? "show" : "hide"}`} role="alert" aria-live="assertive" aria-atomic="true">
+            <div className="toast-body">
+              {toastMessage}
+              <button type="button" className="btn-close ms-5 mt-2 mb-2" aria-label="Close" onClick={() => setShowToast(false)}></button>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

@@ -14,16 +14,31 @@ function CustomNavbar({ setFoundProducts }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
-  const currentLocation = useLocation(); 
+  const currentLocation = useLocation();
+  const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
     const checkUser = async () => {
-      const user = await getUserFromCookie();
-      setIsLoggedIn(user !== null);
+      try {
+        const user = await getUserFromCookie();
+        if (user) {
+          setIsLoggedIn(true);
+          if (user.rol === "ADMIN") {
+            setIsAdmin(true);
+          } else {
+            console.log("no sos admin");
+          }
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error("Error al obtener el usuario", error);
+      }
     };
-
+  
     checkUser();
   }, []);
+  
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -75,8 +90,8 @@ function CustomNavbar({ setFoundProducts }) {
       <nav className="navbar navbar-expand-lg navbar-light">
         <div className="container">
           <div className="d-flex align-items-center">
-            <a className="navbar-brand text-white fw-semibold d-flex align-items-center" href="/">
-              <img src={LogoImage} alt="Logo" style={{ width: '80px',marginRight:"10px"}} className='logoimage' /> 
+            <a className="navbar-brand text-white fw-semibold d-flex align-items-center mt-1" href="/">
+              <img src={LogoImage} alt="Logo" style={{ width: '100px',height: '33px',marginRight:"10px"}} className='logoimage' /> 
               <span id='nav-title' className="nav-link text-custom-orange"></span> 
             </a>
           </div>
@@ -85,15 +100,16 @@ function CustomNavbar({ setFoundProducts }) {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav">
+            {isAdmin ? (
               <li className="nav-item">
-                <a className="nav-link text-white" href="/">Hoteles</a>
-              </li>
+               <a className="nav-link text-white" href="/admin">Admin</a>
+             </li>               
+            ) : (
               <li className="nav-item">
-                <a className="nav-link text-white" href="/">Glampings</a>
+                <a className="nav-link text-white" href="/reservas">Mis reservas</a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link text-white" href="/">Hostales</a>
-              </li>
+            )}
+
             </ul>
             <ul className="navbar-nav ms-auto">
               {isLoggedIn ? (

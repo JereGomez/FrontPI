@@ -29,18 +29,21 @@ const Favs = () => {
     <div>
       <CustomNavbar />
       <div className='favs-container container'>
-        <h1 className='mb-5 mt-2'>Tus favoritos:</h1>
+      <div className="px-4 mt-3 mb-3">
+          <h3 className="fs-1">Tus favoritos</h3>
+          <div className="text-green">Aca separamos una lista con los destinos que mas te interesaron.</div>
+        </div>
         <div className='favs-grid row'>
           {Array.isArray(favorites) && favorites.length > 0 ? (
             favorites.map(item => (
-              <div key={item.id} className="col-12 col-md-6 col-lg-3 mb-4">
+              <div key={item.id} className="col-12 col-md-6 col-lg-3 mb-4 ms-4">
                 <FavoriteItem item={item} Onfavoritetoggle={handleFavoriteToggle} />
               </div>
             ))
           ) : (
-            <div className='text-center'>
+            <div className='text-center mt-4'>
               <p className=''>No existen favoritos</p>
-              <a href='/' className='btn btn-custom-orange'>Agregar un producto</a>
+              <a href='/' className='btn btn-custom-green'>Agregar un producto</a>
             </div>
           )}
         </div>
