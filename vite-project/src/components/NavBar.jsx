@@ -2,18 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom'; 
 import LogoImage from '/Logo03.png';
 import BgNavBar from '/pexels-tomfisk-1518723.jpg';
-import { logoutUser } from '../interceptors/auth.interceptor';
+import { logoutUser, getUserFromCookie } from '../interceptors/auth.interceptor';
 import DateRangePicker from './DateRangePicker'; 
 import { getAllProducts } from '../interceptors/product.interceptor';
 
+
 function CustomNavbar({ setFoundProducts }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('user') !== null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [locations, setLocations] = useState([]);
   const [location, setLocation] = useState('');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
   const currentLocation = useLocation(); 
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const user = await getUserFromCookie();
+      setIsLoggedIn(user !== null);
+    };
+
+    checkUser();
+  }, []);
 
   useEffect(() => {
     const fetchLocations = async () => {

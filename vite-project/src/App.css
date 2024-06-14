@@ -136,6 +136,27 @@
         max-height: 150px;
         width: 240px;
     }
+    /*FOOTER*/
+    .footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #343a40; /* Color de fondo del footer */
+      color: white; /* Color de texto del footer */
+      padding-top: 20px; /* Espaciado interno en la parte superior */
+      padding-bottom: 20px; /* Espaciado interno en la parte inferior */
+    }
+    
+    .footer .container {
+      max-width: 1140px; /* Ancho máximo del contenido del footer */
+    }
+    
+    .footer .container-fluid {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    
+    
 
     .logoimage{
       border-radius:20px ;

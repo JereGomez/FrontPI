@@ -16,7 +16,6 @@ const HomePage = () => {
     const fetchProducts = async () => {
       try {
         const data = await getAllProducts();
-        console.log(data)
         setList(data);
         
         const uniqueCategories = Array.from(new Set(data.flatMap(producto => producto.categorias.map(categoria => categoria.nombre))));
@@ -33,8 +32,6 @@ const HomePage = () => {
   const filterByCategory = (category) => {
     setSelectedCategory(category);
     setCurrentPage(1);
-
-    // Aquí deberías aplicar el filtro y actualizar el estado `foundProducts`
     const filteredList = list.filter(item => category === "Todos" ? true : item.categorias.some(categoria => categoria.nombre === category));
     setFoundProducts(filteredList);
   };

@@ -30,7 +30,6 @@ const Login = () => {
       console.log(response.role);
       if (response.role == "ROLE_ADMIN" || response.role == "ROLE_USER") {
         console.log(registro);
-        saveUserToLocalStorage(registro);
       }
     } catch (error) {
       setError(true);

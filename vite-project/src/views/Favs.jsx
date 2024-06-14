@@ -29,7 +29,7 @@ const Favs = () => {
     <div>
       <CustomNavbar />
       <div className='favs-container container'>
-        <h1 className='text-center mb-5'>Favoritos</h1>
+        <h1 className='mb-5 mt-2'>Tus favoritos:</h1>
         <div className='favs-grid row'>
           {Array.isArray(favorites) && favorites.length > 0 ? (
             favorites.map(item => (

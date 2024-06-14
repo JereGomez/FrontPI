@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllCategorias, createCategoria } from '../interceptors/categoria.interceptor';
+import { getAllCategorias, createCategoria, deleteCategoria } from '../interceptors/categoria.interceptor';
 
 const Categoria = () => {
   const [nombre, setNombre] = useState('');
@@ -33,6 +33,7 @@ const Categoria = () => {
     try {
       const data = await getAllCategorias();
       setCategorias(data);
+      console.log('Categorías obtenidas:', data);
     } catch (error) {
       console.error('Ocurrió un error al obtener las categorías:', error);
       alert('Error al obtener las categorías. Intenta nuevamente.');
@@ -42,6 +43,18 @@ const Categoria = () => {
   useEffect(() => {
     fetchCategorias();
   }, []);
+
+  const deleteCategoriaFunction = async (id) => {
+    try {
+      console.log('Intentando eliminar la categoría con id:', id);
+      await deleteCategoria(id);
+      alert('Categoría eliminada con éxito');
+      setCategorias(categorias.filter(categoria => categoria.id !== id)); // Actualiza el estado local eliminando la categoría
+    } catch (error) {
+      console.error('Ocurrió un error al eliminar una categoría:', error);
+      alert('Error al eliminar la categoría. Intenta nuevamente.');
+    }
+  }
 
   return (
     <div className="modal fade" id="categoriaModal" tabIndex="-1" aria-labelledby="categoriaModalLabel" aria-hidden="true">
@@ -80,7 +93,7 @@ const Categoria = () => {
             <h5>Categorías Existentes</h5>
             <ul>
               {categorias.map((categoria) => (
-                <li key={categoria.id}>{categoria.nombre} - {categoria.descripcion}</li>
+                <li key={categoria.id}>{categoria.nombre} - {categoria.descripcion} <button type="button" className="btn btn-danger me-2" onClick={() => deleteCategoriaFunction(categoria.id)}>Eliminar</button></li>
               ))}
             </ul>
           </div>

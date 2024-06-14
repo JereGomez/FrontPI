@@ -52,7 +52,7 @@ export const editCategoria = async (categoriaId, categoriaData) => {
 export const deleteCategoria = async (categoriaId) => {
   try {
     await interceptor.delete(`/admin/${categoriaId}`, {
-      withCredentials:true
+      withCredentials: true
     });
   } catch (error) {
     console.error('Ocurrió un error al eliminar la categoria:', error);
