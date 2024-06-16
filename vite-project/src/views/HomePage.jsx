@@ -104,6 +104,7 @@ const HomePage = () => {
         </nav>
       </div>
       
+      {/* toast para favoritos */}
       <div aria-live="polite" aria-atomic="true" className="position-relative">
         <div className="toast-container position-fixed top-0 end-0 p-3">
           <div className={`toast ${showToast ? "show" : "hide"}`} role="alert" aria-live="assertive" aria-atomic="true">

@@ -99,18 +99,21 @@ function CustomNavbar({ setFoundProducts }) {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav">
-            {isAdmin ? (
-              <li className="nav-item">
-               <a className="nav-link text-white" href="/admin">Admin</a>
-             </li>               
+          <ul className="navbar-nav">
+            {isLoggedIn ? (
+              isAdmin ? (
+                <li className="nav-item">
+                  <a className="nav-link text-white" href="/admin">Admin</a>
+                </li>
+              ) : (
+                <li className="nav-item">
+                  <a className="nav-link text-white" href="/reservas">Mis reservas</a>
+                </li>
+              )
             ) : (
-              <li className="nav-item">
-                <a className="nav-link text-white" href="/reservas">Mis reservas</a>
-              </li>
+              <></> //no muestro nada
             )}
-
-            </ul>
+          </ul>
             <ul className="navbar-nav ms-auto">
               {isLoggedIn ? (
                 <>

@@ -3,7 +3,7 @@ import LogoImage from '/Logo01.png';
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-white py-4 mt-5">
+    <footer className="bg-dark text-white py-4">
       <div className="container">
         <div className="row">
           <div className="col-12 col-md-4 mb-3" >

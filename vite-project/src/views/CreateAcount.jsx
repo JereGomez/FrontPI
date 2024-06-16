@@ -21,8 +21,6 @@ const CreateAcount = () => {
     contrasenia: "",
   });
   
-
- 
   const validateForm = () => {
     let formIsValid = true;
     let errors = {};
@@ -51,14 +49,10 @@ const CreateAcount = () => {
     return formIsValid;
   };
 
-
-
   const HandleSubmit = async (event) => {
     event.preventDefault();
 
-    if (
-      validateForm()
-    ) {
+    if (validateForm()) {
       try {
         await registerUser(usuario);
         setshow(true);
@@ -73,20 +67,13 @@ const CreateAcount = () => {
 
   return (
     <div className="create-account-container">
-      <div className="col-md-6 d-none d-md-block p-0">
-        <img src={ImagenLogin} className="image-cuenta" alt="" />
+      <div className="image-container-crear-cuenta">
+        <img src={ImagenLogin} className="image-cuenta" alt="Imagen Login" />
       </div>
 
-      <div className="col-md-6 form-side d-flex flex-column justify-content-center p-5">
-        <div className="text-center mb-3">
-          <h1 className="text-center text-custom-orange mb-3">
-            <img
-              src={LogoImage}
-              alt="Gotravel"
-              className="logo-gotravel mb-2"
-            />
-           
-          </h1>
+      <div className="form-side">
+        <div className="text-center">
+          <h1 className="text-center text-custom-orange"></h1>
           <h2 className="titlecuenta">Crea tu cuenta</h2>
           <p className="titlecuenta">
             Ya tienes una cuenta?
@@ -97,47 +84,45 @@ const CreateAcount = () => {
         </div>
 
         <form onSubmit={HandleSubmit} className="form-container">
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="text-inputs-form">
+          <div className="mb-2">
+            <label htmlFor="exampleInputEmail1" className="text-inputs-form">
               Como es tu nombre?
             </label>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               placeholder="Ingresa tu nombre"
               onChange={(event) =>
                 setusuario({ ...usuario, nombre: event.target.value })
               }
             />
-             {errors.nombre && (
-          <p className="text-danger ">{errors.nombre} </p>
-        )}
+            {errors.nombre && (
+              <p className="text-danger fs-5 ms-2">{errors.nombre} </p>
+            )}
           </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="text-inputs-form">
+          <div className="mb-2">
+            <label htmlFor="exampleInputPassword1" className="text-inputs-form">
               Como es tu apellido?
             </label>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               placeholder="Ingresa tu apellido"
               onChange={(event) =>
                 setusuario({ ...usuario, apellido: event.target.value })
               }
             />
-             {errors.apellido && (
-          <p className="text-danger ">{errors.apellido} </p>
-        )}
+            {errors.apellido && (
+              <p className="text-danger fs-5 ms-2">{errors.apellido} </p>
+            )}
           </div>
-
-          <div class="mb-2">
-            <label for="exampleInputEmail1" class="text-inputs-form">
-              {" "}
+          <div className="mb-2">
+            <label htmlFor="exampleInputEmail1" className="text-inputs-form">
               Ingresa tu correo electronico
             </label>
             <input
               type="email"
-              class="form-control"
+              className="form-control"
               placeholder="Ingresa tu Correo"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
@@ -145,39 +130,39 @@ const CreateAcount = () => {
                 setusuario({ ...usuario, email: event.target.value })
               }
             />
-             {errors.email && (
-          <p className="text-danger ">{errors.email}</p>
-        )}
+            {errors.email && (
+              <p className="text-danger fs-5 ms-2">{errors.email}</p>
+            )}
           </div>
-          <div class="mb-3">
-            <label for="InputPassword2" class="text-inputs-form">
+          <div className="mb-2">
+            <label htmlFor="InputPassword2" className="text-inputs-form">
               Crea una contraseña
             </label>
             <input
               type="password"
-              class="form-control"
+              className="form-control"
               placeholder="Ingresa tu Contraseña"
               id="exampleInputPassword1"
               onChange={(event) =>
                 setusuario({ ...usuario, contrasenia: event.target.value })
               }
             />
-             {errors.contrasenia&& (
-          <p className="text-danger ">{errors.contrasenia} </p>
-        )}
+            {errors.contrasenia && (
+              <p className="text-danger fs-5 ms-2">{errors.contrasenia} </p>
+            )}
           </div>
-          <p className="titlecuenta">
+          <p className="titlecuenta fs-5 ms-2">
             Al crear esta cuenta estas de acuerdo con los Terminos y Condiciones
           </p>
-          <button type="submit" class="btn btn-crear-cuenta">
+          <button type="submit" className="btn btn-custom-green d-flex justify-content-center m-auto">
             Crear cuenta
           </button>
         </form>
         {show && (
-          <h1 className="titlecuenta ">Te has registrado correctamente</h1>
+          <h1 className="titlecuenta">Te has registrado correctamente</h1>
         )}
         {errors.form && (
-          <p className="text-danger ">{errors.form}</p>
+          <p className="text-danger ms-2">{errors.form}</p>
         )}
       </div>
     </div>
