@@ -27,7 +27,7 @@ const Card = ({ item, Onfavoritetoggle, showToast }) => {
           setFavorites(favoritesList);
 
           const existingFavorite = favoritesList.find(
-            fav => fav.productoSalidaDto.id === item.id && fav.usuarioSalidaDto.id === userData.id
+            fav => fav.producto.id === item.id && fav.usuario.id === userData.id
           );
           setIsFavorite(!!existingFavorite);
         }
@@ -47,7 +47,7 @@ const Card = ({ item, Onfavoritetoggle, showToast }) => {
 
       if (isFavorite) {
         const favoriteToDelete = favorites.find(
-          fav => fav.productoSalidaDto.id === item.id && fav.usuarioSalidaDto.id === user.id
+          fav => fav.producto.id === item.id && fav.usuario.id === user.id
         );
         if (favoriteToDelete) {
           await deleteFavorito(favoriteToDelete.id);
@@ -56,8 +56,8 @@ const Card = ({ item, Onfavoritetoggle, showToast }) => {
       } else {
         const newFavorite = {
           nombre: item.nombre,
-          usuarioSalidaDtoId: user.id,
-          productoSalidaDtoId: item.id 
+          usuarioId: user.id,
+          productoId: item.id 
         };
 
         await createFavorito(newFavorite);

@@ -41,7 +41,7 @@ const Favs = () => {
               </div>
             ))
           ) : (
-            <div className='text-center mt-4'>
+            <div className='text-center mt-4 mb-5'>
               <p className=''>No existen favoritos</p>
               <a href='/' className='btn btn-custom-green'>Agregar un producto</a>
             </div>

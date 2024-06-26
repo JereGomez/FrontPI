@@ -236,6 +236,37 @@
       justify-content: center;
       text-align: center;
       }
+
+    /*RESERVAS*/
+    .filter-links a {
+      cursor: pointer;
+      text-decoration: none;
+      color: #000; 
+      position: relative;
+      margin-right: 15px;
+      font-weight: 400;
+      font-size: 20px;
+    }
+    
+    .filter-links a::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: transparent;
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+    }
+    
+    .filter-links a.active-filter::after {
+      background: #2a8584; 
+    }
+    
+    .filter-links a:hover::after {
+      background: #2a8584; 
+    }
+
     
 
     /*RESPONSIVE MONITOR*/
@@ -267,6 +298,7 @@
         color: rgb(0, 0, 0); 
         cursor: pointer;
       }
+
    
      }
 

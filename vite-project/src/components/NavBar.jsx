@@ -102,9 +102,14 @@ function CustomNavbar({ setFoundProducts }) {
           <ul className="navbar-nav">
             {isLoggedIn ? (
               isAdmin ? (
-                <li className="nav-item">
-                  <a className="nav-link text-white" href="/admin">Admin</a>
-                </li>
+                <>
+                  <li className="nav-item">
+                      <a className="nav-link text-white" href="/admin">Admin</a>
+                  </li>
+                  <li className="nav-item">
+                        <a className="nav-link text-white" href="/reservas">Reservas</a>
+                  </li>
+                </>
               ) : (
                 <li className="nav-item">
                   <a className="nav-link text-white" href="/reservas">Mis reservas</a>
@@ -138,7 +143,7 @@ function CustomNavbar({ setFoundProducts }) {
           </div>
         </div>
       </nav>
-      {!currentLocation.pathname.includes('/detalles/') && !currentLocation.pathname.includes('/favoritos') && (
+      {!currentLocation.pathname.includes('/detalles/') && !currentLocation.pathname.includes('/favoritos') && !currentLocation.pathname.includes('/reservas') && (
       <div className="container mt-3 mb-2">
         <form className="d-flex flex-column flex-sm-row justify-content-center align-items-center" onSubmit={handleSearch}>
           <select className="form-select mb-2 mb-sm-0 me-0 me-sm-2 text-green p-2" style={{ maxWidth: '250px' }} value={location} onChange={handleLocationChange}>

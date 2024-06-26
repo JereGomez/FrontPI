@@ -8,6 +8,7 @@ import Login from '../views/Login';
 import ProtectedRoute from '../components/ProtectedRoute';
 import { Navigate } from 'react-router-dom';
 import Favs from '../views/Favs';
+import Reservas from '../views/Reservas';
 
 const MainRouter = () => {
 
@@ -38,6 +39,14 @@ const MainRouter = () => {
           element={
             <ProtectedRoute>
               <Favs />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/reservas" 
+          element={
+            <ProtectedRoute>
+              <Reservas />
             </ProtectedRoute>
           } 
         />

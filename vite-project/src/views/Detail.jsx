@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import CustomNavbar from '../components/NavBar';
 import { getProductsById } from '../interceptors/product.interceptor';
-import DateRangePicker from '../components/DateRangePicker';
+import DetailDatePicker from '../components/DetailDatePicker';
+import { createReserva } from '../interceptors/reserva.interceptor';
+import { getUserFromCookie } from '../interceptors/auth.interceptor';
+import { format } from 'date-fns';
 
 const Detail = () => {
   const [product, setProduct] = useState(null);
@@ -11,14 +14,13 @@ const Detail = () => {
   const [showGallery, setShowGallery] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [showShareModal, setShowShareModal] = useState(false);
+  const [user, setUser] = useState(null); // State to hold user information
   const params = useParams();
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const data = await getProductsById(params.id);
-        console.log(data);
-        console.log(data);
         setProduct(data);
       } catch (error) {
         console.error(error);
@@ -29,6 +31,18 @@ const Detail = () => {
     };
     fetchProduct();
   }, [params.id]);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const fetchedUser = await getUserFromCookie();
+        setUser(fetchedUser);
+      } catch (error) {
+        console.error('Error al obtener usuario desde la cookie', error);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const openGallery = (index) => {
     setSelectedImageIndex(index);
@@ -54,12 +68,39 @@ const Detail = () => {
     });
   };
 
-  const handleReserve = () => {
-    alert("Reserva completada");
+  const handleReserve = async (startDate, endDate) => {
+    try {
+      if (!startDate || !endDate) {
+        alert('Las fechas no pueden estar vacías');
+        return;
+      }
+
+      const formattedStartDate = format(startDate, 'yyyy-MM-dd');
+      const formattedEndDate = format(endDate, 'yyyy-MM-dd');
+
+      if (isNaN(new Date(formattedStartDate)) || isNaN(new Date(formattedEndDate))) {
+        alert('Formato de fecha inválido');
+        return;
+      }
+
+      const reserva = {
+        usuarioId: user.id,
+        productoId: product.id,
+        fechaInicio: formattedStartDate,
+        fechaFin: formattedEndDate,
+        estado: 'PENDIENTE'
+      };
+
+      await createReserva(reserva);
+      alert('Reserva completada con éxito');
+    } catch (error) {
+      console.error('Ocurrió un error al completar la reserva', error);
+      alert('Ocurrió un error al completar la reserva');
+    }
   };
 
   return (
-    <> 
+    <>
       <CustomNavbar />
       {!loading && !error && !product && (
         <div className="detail-container container py-3 py-lg-5">
@@ -95,34 +136,17 @@ const Detail = () => {
                 <p className="text-green">
                   <i className="bi bi-geo-alt-fill"></i> {product?.ubicacion?.pais}, {product?.ubicacion?.ciudad}, CP: {product?.ubicacion?.codigoPostal}
                 </p>
-                <p className="text-green"><i class="bi bi-people-fill"></i> {product?.capacidad} personas</p>
+                <p className="text-green"><i class="bi bi-people-fill"></i> {product?.capacidad} personas</p> 
                 <p>${product?.precioNoche} <span className="text-green text-decoration-line-through">USD</span></p>
-                <div>
-                  <h5>Amenities</h5>
-                  {product?.caracteristicas && product.caracteristicas.length > 0 ? (
-                    <ul>
-                      {product.caracteristicas.map((caracteristica) => (
-                          <li key={caracteristica.id}>
-                            {caracteristica.nombre}
-                          </li>                      
-                      ))}
-                    </ul>
-                  ) : (
-                    <p></p>
-                  )}
-                </div>
-                <DateRangePicker />
-                <br />
-                  <div className="row">
                   <div className="col-lg-8 col-10">
-                    <button className='btn btn-custom-orange w-100 mb-2 mb-lg-0' onClick={handleReserve}>Reservar</button>
+                  <DetailDatePicker onReserve={handleReserve} productId={product?.id} />
                   </div>
-                  <div className="col-lg-4 col-10">
+                  <div className="col-lg-8 col-10 mt-2 ms-1">
                     <button className='btn btn-custom-green w-100' onClick={handleShare}>
                       <i className="bi bi-share-fill"></i>
                     </button>
                   </div>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -159,8 +183,6 @@ const Detail = () => {
           </div>
         </div>
       </div>
-
-
 
       {/* Popup de la galería */}
       {showGallery && (
@@ -231,7 +253,6 @@ const Detail = () => {
           </div>
         </div>
       )}
-
     </>
   );
 };

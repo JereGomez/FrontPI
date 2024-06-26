@@ -7,7 +7,7 @@ const interceptor = axios.create({
 
 export const getAllCategorias = async () => {
   try {
-    const response = await interceptor.get('/');
+    const response = await interceptor.get('/listar');
     return response.data;
   } catch (error) {
     console.error('Ocurrió un error al traer las categorias:', error);
@@ -27,7 +27,7 @@ export const getCategoriaById = async (id) => {
 
 export const createCategoria = async (categoria) => {
   try {
-    const response = await interceptor.post('/admin/', categoria, {
+    const response = await interceptor.post('/', categoria, {
       withCredentials:true
     });
     return response.data;
@@ -39,7 +39,7 @@ export const createCategoria = async (categoria) => {
 
 export const editCategoria = async (categoriaId, categoriaData) => {
   try {
-    const response = await interceptor.put(`/admin/${categoriaId}`, categoriaData, {
+    const response = await interceptor.put(`/${categoriaId}`, categoriaData, {
       withCredentials:true
     });
     return response.data;
@@ -51,7 +51,7 @@ export const editCategoria = async (categoriaId, categoriaData) => {
 
 export const deleteCategoria = async (categoriaId) => {
   try {
-    await interceptor.delete(`/admin/${categoriaId}`, {
+    await interceptor.delete(`/${categoriaId}`, {
       withCredentials: true
     });
   } catch (error) {

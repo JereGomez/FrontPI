@@ -14,26 +14,26 @@ const FavoriteItem = ({ item, Onfavoritetoggle }) => {
     }
   };
 
-  const primeraImagenURL = item.productoSalidaDto.imagenes.length > 0 ? item.productoSalidaDto.imagenes[0].rutaDeArchivo : 'default-image-url';
+  const primeraImagenURL = item.producto.imagenes.length > 0 ? item.producto.imagenes[0].rutaDeArchivo : 'default-image-url';
 
 
   return (
     <>
       <div className="image-container" style={{maxWidth:'240px'}}>
-        <a href={`/detalles/${item.id}`}>
+        <a href={`/detalles/${item.producto.id}`}>
           <img src={primeraImagenURL} className="card-img-top rounded" alt={nombre}/>
         </a>
       </div>
       <div className="card-body">
-        <h2 className="card-title fs-5 mt-2">{item.productoSalidaDto.nombre}</h2>
+        <h2 className="card-title fs-5 mt-2">{item.producto.nombre}</h2>
         <div className="text-green">
-          <i className="bi bi-geo-alt"></i> {item.productoSalidaDto.ubicacion.pais || 'Desconocido'}
+          <i className="bi bi-geo-alt"></i> {item.producto.ubicacion.pais || 'Desconocido'}
         </div>
         <div>
-          <span className="fw-semibold fs-5">${item.productoSalidaDto.precioNoche}</span>
+          <span className="fw-semibold fs-5">${item.producto.precioNoche}</span>
           <span className="text-green text-decoration-line-through">USD</span>
         </div>
-        <div className="text-green">{item.productoSalidaDto.caracteristicas[0].nombre}</div>
+        <div className="text-green">{item.producto.caracteristicas[0].nombre}</div>
         <button className="btn btn-custom-orange mt-2" onClick={handleDeleteFavorite}>Eliminar</button>
       </div>
     </>

@@ -1,6 +1,6 @@
 export const hasAdminPermission = async () => {
     try {
-      const response = await fetch('http://localhost:8081/usuarios/admin/home', {
+      const response = await fetch('http://localhost:8081/usuarios/home', {
         method: 'GET',
         credentials: 'include'
       })

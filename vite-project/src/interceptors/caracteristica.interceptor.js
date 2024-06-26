@@ -7,7 +7,7 @@ const interceptor = axios.create({
 
 export const getAllCaracteristicas = async () => {
   try {
-    const response = await interceptor.get('/');
+    const response = await interceptor.get('/listar');
     return response.data;
   } catch (error) {
     console.error('Ocurrió un error al traer los productos:', error);

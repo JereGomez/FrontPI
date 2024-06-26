@@ -49,7 +49,7 @@ const Categoria = () => {
       console.log('Intentando eliminar la categoría con id:', id);
       await deleteCategoria(id);
       alert('Categoría eliminada con éxito');
-      setCategorias(categorias.filter(categoria => categoria.id !== id)); // Actualiza el estado local eliminando la categoría
+      setCategorias(categorias.filter(categoria => categoria.id !== id));
     } catch (error) {
       console.error('Ocurrió un error al eliminar una categoría:', error);
       alert('Error al eliminar la categoría. Intenta nuevamente.');
