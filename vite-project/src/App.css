@@ -209,6 +209,16 @@
     }
 
     /*FAVS*/
+    .favs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .favorite-item-container {
+      width: 100%;
+    }
+    
     .image-container {
       position: relative;
     }

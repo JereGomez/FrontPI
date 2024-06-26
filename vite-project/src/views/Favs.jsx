@@ -33,7 +33,7 @@ const Favs = () => {
           <h3 className="fs-1">Tus favoritos</h3>
           <div className="text-green">Aca separamos una lista con los destinos que mas te interesaron.</div>
         </div>
-        <div className='favs-grid row'>
+        <div className='favs-list row'>
           {Array.isArray(favorites) && favorites.length > 0 ? (
             favorites.map(item => (
               <div key={item.id} className="col-12 col-md-6 col-lg-3 mb-4 ms-4">
