@@ -102,9 +102,7 @@ const Card = ({ item, Onfavoritetoggle, showToast }) => {
           <span className="fw-semibold fs-5">${precioNoche}</span>
           <span className="text-green text-decoration-line-through">USD</span>
         </div>
-        <div className="text-green">
-          Desayuno incluido
-        </div>
+
       </div>
     </div>
   );

@@ -19,7 +19,6 @@ const HomePage = () => {
       try {
         const data = await getAllProducts();
         setList(data);
-
         const uniqueCategories = Array.from(new Set(data.flatMap(producto => producto.categorias.map(categoria => categoria.nombre))));
         setCategories(["Todos", ...uniqueCategories]);
         setFoundProducts(data);
