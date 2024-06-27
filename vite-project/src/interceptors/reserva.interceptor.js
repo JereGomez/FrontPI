@@ -3,7 +3,7 @@ import { getUserFromCookie } from "./auth.interceptor";
 
 
 const interceptor = axios.create({
-  baseURL: "http://localhost:8081/reservas"
+  baseURL: "https://gotravel.up.railway.app/reservas"
 });
 
 export const getAllReservas = async () => {

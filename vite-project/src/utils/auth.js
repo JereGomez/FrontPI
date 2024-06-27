@@ -1,6 +1,6 @@
 export const hasAdminPermission = async () => {
     try {
-      const response = await fetch('http://localhost:8081/usuarios/home', {
+      const response = await fetch('https://gotravel.up.railway.app/usuarios/home', {
         method: 'GET',
         credentials: 'include'
       })

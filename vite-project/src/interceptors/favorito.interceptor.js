@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const interceptor = axios.create({
-    baseURL :'http://localhost:8081/favoritos',
+    baseURL :'https://gotravel.up.railway.app/favoritos',
     withCredentials:true,
 })
 

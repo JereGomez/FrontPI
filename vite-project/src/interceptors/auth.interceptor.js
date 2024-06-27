@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { jwtVerify, SignJWT } from 'jose';
 
 const interceptor = axios.create({
-  baseURL: "http://localhost:8081/auth"
+  baseURL: "https://gotravel.up.railway.app/auth"
 });
 
 const SECRET_KEY = new TextEncoder().encode('miclavenotansecreta');

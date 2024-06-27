@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const interceptor = axios.create({
-  baseURL: 'http://localhost:8081/ubicacion',
+  baseURL: 'https://gotravel.up.railway.app/ubicacion',
   withCredentials: true,
 });
 
