@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import CustomNavbar from '../components/NavBar';
 import { getProductsById } from '../interceptors/product.interceptor';
 import DetailDatePicker from '../components/DetailDatePicker';
@@ -14,8 +14,11 @@ const Detail = () => {
   const [showGallery, setShowGallery] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [showShareModal, setShowShareModal] = useState(false);
-  const [user, setUser] = useState(null); // State to hold user information
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // Estado para controlar la visibilidad del modal de éxito
+  const [user, setUser] = useState(null);
   const params = useParams();
+  const navigate = useNavigate(); // Hook para la navegación
+  const [isReserving, setIsReserving] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -70,6 +73,7 @@ const Detail = () => {
 
   const handleReserve = async (startDate, endDate) => {
     try {
+      setIsReserving(true);
       if (!startDate || !endDate) {
         alert('Las fechas no pueden estar vacías');
         return;
@@ -92,11 +96,14 @@ const Detail = () => {
       };
 
       await createReserva(reserva);
-      alert('Reserva completada con éxito');
+      setShowSuccessModal(true); // Mostrar el modal de éxito
     } catch (error) {
       console.error('Ocurrió un error al completar la reserva', error);
       alert('Ocurrió un error al completar la reserva');
+    } finally {
+      setIsReserving(false);
     }
+
   };
 
   return (
@@ -248,6 +255,27 @@ const Detail = () => {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" onClick={closeShareModal}>Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de éxito */}
+      {showSuccessModal && (
+        <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Reserva Completada</h5>
+                <button type="button" className="btn-close" aria-label="Close" onClick={() => setShowSuccessModal(false)}></button>
+              </div>
+              <div className="modal-body">
+                <p>Su reserva se ha completado con éxito.</p>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={() => setShowSuccessModal(false)}>Cerrar</button>
+                <button type="button" className="btn btn-custom-green" onClick={() => navigate('/reservas')}>Ver Reserva</button>
               </div>
             </div>
           </div>
