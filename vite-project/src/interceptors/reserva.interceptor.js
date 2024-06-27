@@ -11,7 +11,7 @@ export const getAllReservas = async () => {
     const response = await interceptor.get("/listar", {
         withCredentials: true
     });
-    return response; 
+    return response; //le saco el .data
   } catch (error) {
     console.error("Ocurrió un error al obtener las reservas", error);
     throw error;

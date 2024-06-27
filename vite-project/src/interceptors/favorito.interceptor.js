@@ -7,7 +7,9 @@ const interceptor = axios.create({
 
 export const getAllFavorits = async () => {
     try {
-        const response = await interceptor.get('/mis-favoritos');
+        const response = await interceptor.get('/mis-favoritos', {
+          withCredentials:true
+        });
         return response.data;
       } catch (error) {
         console.error('Ocurrió un error al traer los favoritos:', error);

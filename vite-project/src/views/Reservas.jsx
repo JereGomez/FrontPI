@@ -66,9 +66,11 @@ const Reservas = () => {
           </div>
         </div>
         {loading && (
-          <div className="text-center mt-4">
-            <p>Cargando reservas...</p>
+          <div className="d-flex justify-content-center align-items-center" style={{ height: '50vh' }}>
+          <div className="spinner-border text-green" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
+        </div>
         )}
         {!loading && error && (
           <div className="text-center mt-4">

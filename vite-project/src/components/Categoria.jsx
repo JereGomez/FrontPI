@@ -22,7 +22,7 @@ const Categoria = () => {
       alert('Categoría creada con éxito');
       setNombre('');
       setDescripcion('');
-      fetchCategorias(); // Volver a obtener las categorías después de crear una nueva
+      fetchCategorias(); 
     } catch (error) {
       console.error('Ocurrió un error al registrar una nueva categoría:', error);
       alert('Error al crear la categoría. Intenta nuevamente.');

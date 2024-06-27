@@ -29,7 +29,7 @@ export const getCaracteristicaById = async (id) => {
 
 export const createCaracteristica = async (caracteristica) => {
   try {
-    const response = await interceptor.post('/admin/', caracteristica, {
+    const response = await interceptor.post('/', caracteristica, {
       withCredentials:true
     });
     return response.data;
