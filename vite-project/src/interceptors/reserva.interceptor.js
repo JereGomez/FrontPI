@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getUserFromCookie } from "./auth.interceptor";
 
 
 const interceptor = axios.create({
